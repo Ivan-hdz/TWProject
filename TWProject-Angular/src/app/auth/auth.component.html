@@ -1,0 +1,14 @@
+<div *ngIf="isAuth(); then homePage else auth"></div>
+<ng-template #homePage >Hello Home</ng-template>
+<ng-template  #auth>
+  <ngb-tabset [justify]="'justified'" type="pills">
+    <ngb-tab id="loginTab">
+      <ng-template ngbTabTitle><h2>Iniciar Sesión</h2></ng-template>
+      <ng-template ngbTabContent><app-login></app-login></ng-template>
+    </ngb-tab>
+    <ngb-tab id="registrarTab">
+      <ng-template ngbTabTitle><h2><b>¡Registrate!</b></h2></ng-template>
+      <ng-template ngbTabContent><app-sign-up></app-sign-up></ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</ng-template>

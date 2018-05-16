@@ -1,0 +1,22 @@
+<div class="bg-turquesa vertical-center" >
+  <div class=" form-group container bg-container-turq">
+    <h1 class="text-center wh-h1">Nuevo Usuario</h1>
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <label class="h2 wh-lbl">Nombre a mostrar</label>
+        <input #nickname type="text" class="form-control form-control-lg" placeholder="Nombre a mostrar">
+      </div><div class="form-group col-lg-6">
+        <label class="h2 wh-lbl">Nombre de usuario</label>
+        <input #userName type="text" class="form-control form-control-lg" placeholder="Nombre de usuario">
+      </div>
+      <div class="form-group col-lg-6">
+        <label class="h2 wh-lbl">Contraseña</label>
+        <input #pass type="text" class="form-control form-control-lg" placeholder="Contraseña">
+      </div>
+    </div>
+    <br>
+    <div class="col-md-12 text-center">
+      <button (click)="signup(nickname, userName, pass)" class="btn btn-danger btn-lg ">Registrar</button>
+    </div>
+  </div>
+</div>
