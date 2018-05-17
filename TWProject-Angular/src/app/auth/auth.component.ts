@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from '@angular/core';
+import {UserAccountService} from '../shared/services/user-account.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,11 +8,18 @@ import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() {
+  private userApi: UserAccountService;
 
+  constructor(userAccApi: UserAccountService) {
+    this.userApi = userAccApi;
   }
 
   ngOnInit() {
+    this.userApi.getUsers().subscribe(users => {
+        console.log(users.user[0].authLevel);
+    }, error => {
+        console.log(error);
+      });
   }
 
   isAuth()

@@ -8,6 +8,10 @@ import {Routes, RouterModule} from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthComponent } from './auth/auth.component';
+import {UserAccountService} from './shared/services/user-account.service';
+import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+import {ParseFormatService} from './shared/services/parse-format.service';
 
 const routes: Routes = [
   { path: 'index', component: AuthComponent},
@@ -26,9 +30,10 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [UserAccountService, ParseFormatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
