@@ -3,9 +3,7 @@ import {parseString} from 'xml2js';
 import {Builder} from 'xml2js';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ParseFormatService
 {
   public xmlToJson(xml: String)

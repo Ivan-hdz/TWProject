@@ -2,8 +2,8 @@ export interface UserInterface
 {
   nickname: String;
   username: String;
-  password: String;
   authLevel: Number;
+  password: String;
 }
 
 export interface UsersInterface
@@ -15,4 +15,15 @@ export interface RESTStatus
 {
   status: String;
   message: String;
+}
+
+export interface MenuItem
+{
+  displayName: String;
+  selectorName: String;
+}
+
+export interface Menu
+{
+  menuItems: MenuItem[];
 }

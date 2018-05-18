@@ -1,5 +1,5 @@
-<div *ngIf="isAuth(); then homePage else auth"></div>
-<ng-template #homePage >Hello Home</ng-template>
+<div *ngIf="cUser.isLoggedIn(); then homePage else auth"></div>
+<ng-template #homePage ><app-home></app-home></ng-template>
 <ng-template  #auth>
   <ngb-tabset [justify]="'justified'" type="pills">
     <ngb-tab id="loginTab">

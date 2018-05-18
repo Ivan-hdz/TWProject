@@ -1,19 +1,14 @@
 import {Injectable} from '@angular/core';
-import {UserInterface, UsersInterface, RESTStatus} from './interfaces';
+import {UserInterface, UsersInterface, RESTStatus} from '../interfaces';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
 import {ParseFormatService} from './parse-format.service';
+import {restStatus_test, userSacc_test, usertAcc_test} from '../shared/values/strings';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserAccountService {
-
-  private xml: String;
-  private xml2: String;
-  private xml4: String;
 
   private http: HttpClient;
   private parser: ParseFormatService;
@@ -21,22 +16,7 @@ export class UserAccountService {
   constructor(http: HttpClient, parser: ParseFormatService) {
     this.http = http;
     this.parser = parser;
-    this.xml = '<users>\n' +
-      '\t<user>\n' +
-      '\t\t<username>1</username>\n' +
-      '\t\t<nickname>Ivan</nickname>\n' +
-      '\t\t<password>asdf</password>\n' +
-      '\t\t<authLevel>Admin</authLevel>' +
-      '\t</user>\n' +
-      '\t<user>\n' +
-      '\t\t<username>2</username>\n' +
-      '\t\t<nickname>ivan2</nickname>\n' +
-      '\t\t<password>1234</password>\n' +
-      '\t\t<authLevel>Profe</authLevel>' +
-      '\t</user>\n' +
-      '</users>';
-    this.xml2 = '<user><username>honte</username><nickname>ivan hdz</nickname><password>aloo</password></user>';
-    this.xml4 = '<restStatus><status>200</status><message>Alo</message></restStatus>';
+
   }
 
   // GET METHOD
@@ -45,7 +25,7 @@ export class UserAccountService {
   }
 
   private getUsersHttpRequest() {
-    return of(this.xml);
+    return of(userSacc_test);
     // return this.http.get('http://localhost:8080/rest/users');
   }
 
@@ -54,7 +34,7 @@ export class UserAccountService {
   }
 
   private getUserHttpRequest(username: String) {
-    return of(this.xml2);
+    return of(usertAcc_test);
     // return this.http.get('http://localhost:8080/rest/users/' + username);
   }
   // POST
@@ -63,7 +43,7 @@ export class UserAccountService {
   }
 
   private postUserHttpRequest(newUser: UserInterface) {
-    return of(this.xml4);
+    return of(restStatus_test);
     // return this.http.post('http://localhost:8080/rest/users', newUser);
   }
   // PUT
@@ -72,7 +52,7 @@ export class UserAccountService {
   }
 
   private putUserHttpMethod(user: UserInterface) {
-    return of(this.xml4);
+    return of(restStatus_test);
     // return this.http.put('http://localhost:8080/rest/users/' + user.username, user);
   }
   // DELETE
@@ -81,7 +61,7 @@ export class UserAccountService {
   }
 
   private deleteUserHttpMethod(user: UserInterface) {
-    return of(this.xml4);
+    return of(restStatus_test);
     // return this.http.delete('http://localhost:8080/rest/users/' + user.username);
   }
 }

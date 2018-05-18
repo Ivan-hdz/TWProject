@@ -8,13 +8,19 @@ import {Routes, RouterModule} from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthComponent } from './auth/auth.component';
-import {UserAccountService} from './shared/services/user-account.service';
-import {HttpModule} from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
-import {ParseFormatService} from './shared/services/parse-format.service';
+import { HomeComponent } from './home/home.component';
+import {RESTModule} from './modules/rest/rest.module';
+import {AdminModule} from './modules/admin/admin.module';
+import {MenuService} from './services/menu.service';
+import { MenuComponent } from './menu/menu.component';
+import {CurrentUserService} from './services/current-user.service';
+import {ParseFormatService} from './services/parse-format.service';
+import {RedirectComponent} from './redirect.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 const routes: Routes = [
   { path: 'index', component: AuthComponent},
+  { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -25,15 +31,19 @@ const routes: Routes = [
     LoginComponent,
     PageNotFoundComponent,
     SignUpComponent,
-    AuthComponent
+    AuthComponent,
+    HomeComponent,
+    MenuComponent,
+    RedirectComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     NgbModule.forRoot(),
-    HttpClientModule
+    RESTModule,
+    AdminModule
   ],
-  providers: [UserAccountService, ParseFormatService],
+  providers: [MenuService, CurrentUserService, ParseFormatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

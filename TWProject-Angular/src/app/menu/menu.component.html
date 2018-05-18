@@ -1,0 +1,8 @@
+<ngb-tabset [justify]="'justified'" type="pills">
+  <div *ngFor="let item of menu_items$ | async">
+    <ngb-tab>
+      <ng-template ngbTabTitle><h3>{{item.displayName}}</h3></ng-template>
+      <ng-template ngbTabContent><div>{{item.selectorName}}</div> </ng-template>
+    </ngb-tab>
+  </div>
+</ngb-tabset>

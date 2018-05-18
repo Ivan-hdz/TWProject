@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserAccountService} from '../shared/services/user-account.service';
+import {UserAccountService} from '../services/user-account.service';
+import {CurrentUserService} from '../services/current-user.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,23 +9,13 @@ import {UserAccountService} from '../shared/services/user-account.service';
 })
 export class AuthComponent implements OnInit {
 
-  private userApi: UserAccountService;
+  private cUser: CurrentUserService;
 
-  constructor(userAccApi: UserAccountService) {
-    this.userApi = userAccApi;
+  constructor(cUser: CurrentUserService) {
+    this.cUser = cUser;
   }
 
   ngOnInit() {
-    this.userApi.getUsers().subscribe(users => {
-        console.log(users.user[0].authLevel);
-    }, error => {
-        console.log(error);
-      });
-  }
-
-  isAuth()
-  {
-    return false;
   }
 
 }
