@@ -1,0 +1,35 @@
+.my-menu
+{
+  background-color: #74b9ff;
+  width: 100px;
+  min-height: 100vh;
+  display: table;
+  float: left;
+}
+
+.my-menu-nick
+{
+  border-bottom: 3px solid #141414;
+  background-color: #f9f9f9;
+  border-radius: 0px;
+  width: 100%;
+}
+
+.my-btn
+{
+  background-color: #f9f9f9;
+  border: none;
+  border-radius: 0px;
+  width: 100%;
+  -webkit-transition: background-color 0.5s;
+  -moz-transition: background-color 0.5s;
+  -ms-transition: background-color 0.5s;
+  -o-transition: background-color 0.5s;
+  transition: background-color 0.5s;
+}
+
+.my-btn:hover
+{
+  background-color: #141414;
+}
+

@@ -1,8 +1,29 @@
-<ngb-tabset [justify]="'justified'" type="pills">
-  <div *ngFor="let item of menu_items$ | async">
-    <ngb-tab>
-      <ng-template ngbTabTitle><h3>{{item.displayName}}</h3></ng-template>
-      <ng-template ngbTabContent><div>{{item.selectorName}}</div> </ng-template>
-    </ngb-tab>
+<div *ngIf="cUser.getAuthLevel() == 0; then menuAdmin "></div>
+<div *ngIf="cUser.getAuthLevel() == 1; then menuProf "></div>
+<div *ngIf="cUser.getAuthLevel() == 2; then menuAlumno "></div>
+
+<ng-template #menuAdmin>
+  <div class="my-menu">
+    <button class="btn btn-outline-primary disabled my-menu-nick">{{cUser.getNickname()}}</button>
+    <button class="btn btn-outline-primary my-btn" (click)="go('/home')" >Inicio</button>
+    <button class="btn btn-outline-primary my-btn" (click)="go('/admin-users')" >Administrador de usuarios</button>
+    <button class="btn btn-outline-primary my-btn" (click)="logout()" >Cerrar sesión</button>
   </div>
-</ngb-tabset>
+</ng-template>
+<ng-template #menuProf>
+  <div class="my-menu">
+    <button class="btn btn-outline-primary disabled my-menu-nick">{{cUser.getNickname()}}</button>
+    <button class="btn btn-outline-primary my-btn" (click)="go('/home')" >Inicio</button>
+    <button class="btn btn-outline-primary my-btn" (click)="go('/gestionar-secciones')" >Gestionar secciones</button>
+    <button class="btn btn-outline-primary my-btn" (click)="go('/gestionar-actividades')" >Gestionar actividades</button>
+    <button class="btn btn-outline-primary my-btn" (click)="logout()" >Cerrar sesión</button>
+  </div>
+</ng-template>
+<ng-template #menuAlumno>
+  <div class="my-menu">
+    <button class="btn btn-outline-primary disabled my-menu-nick">{{cUser.getNickname()}}</button>
+    <button class="btn btn-outline-primary my-btn" (click)="go('/home')" >Inicio</button>
+    <button class="btn btn-outline-primary my-btn" (click)="go('/hacer-actividad')" >Realizar actividad</button>
+    <button class="btn btn-outline-primary my-btn" (click)="logout()" >Cerrar sesión</button>
+  </div>
+</ng-template>

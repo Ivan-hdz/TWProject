@@ -20,7 +20,6 @@ export interface RESTStatus
 export interface MenuItem
 {
   displayName: String;
-  selectorName: String;
 }
 
 export interface Menu

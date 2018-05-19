@@ -1,25 +1,3 @@
-import {MenuItem} from '../../interfaces';
-
-export const restEndpoint: String = 'http://localhost:8080';
-
-const inicioItem: MenuItem = { displayName: 'Inicio', selectorName: '<app-admin-home></app-admin-home>'};
-const cerrarItem: MenuItem = { displayName: 'Cerrar Sesión', selectorName: ''};
-
-export const ITEMS_ADMIN: MenuItem[] = [
-  inicioItem,
-  {
-    displayName: 'Administrar Usuarios',
-    selectorName: '<app-adminUsers></app-adminUsers>'
-  }, cerrarItem];
-
-export const ITEMS_PROF: MenuItem[] = [
-  inicioItem,
-  {
-    displayName: 'Gestionar Secciones',
-    selectorName: ''
-  }, cerrarItem];
-
-export const ITEMS_ALUMNO: MenuItem[] = [ inicioItem, cerrarItem ];
 
 export const userSacc_test = '<users>\n' +
   '\t<user>\n' +
@@ -39,6 +17,6 @@ export const usertAcc_test = '<user>' +
   '<username>honte</username>' +
   '<nickname>ivan hdz</nickname>' +
   '<password>aloo</password>' +
-  '<authLevel>0</authLevel>' +
+  '<authLevel></authLevel>' +
   '</user>';
 export const restStatus_test = '<restStatus><status>success</status><message>Alo</message></restStatus>';

@@ -11,12 +11,11 @@ import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 import {RESTModule} from './modules/rest/rest.module';
 import {AdminModule} from './modules/admin/admin.module';
-import {MenuService} from './services/menu.service';
 import { MenuComponent } from './menu/menu.component';
 import {CurrentUserService} from './services/current-user.service';
 import {ParseFormatService} from './services/parse-format.service';
 import {RedirectComponent} from './redirect.component';
-import { AdminHomeComponent } from './admin-home/admin-home.component';
+import {CommonModule} from '@angular/common';
 
 const routes: Routes = [
   { path: 'index', component: AuthComponent},
@@ -37,13 +36,14 @@ const routes: Routes = [
     RedirectComponent
   ],
   imports: [
+    CommonModule,
     RouterModule.forRoot(routes),
     BrowserModule,
     NgbModule.forRoot(),
     RESTModule,
     AdminModule
   ],
-  providers: [MenuService, CurrentUserService, ParseFormatService],
+  providers: [CurrentUserService, ParseFormatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuService} from '../services/menu.service';
-import {Observable, of} from 'rxjs';
-import {Menu, MenuItem} from '../interfaces';
 import {CurrentUserService} from '../services/current-user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -11,19 +9,25 @@ import {CurrentUserService} from '../services/current-user.service';
 })
 export class MenuComponent implements OnInit {
 
-  private menu$: Observable<Menu>;
-  private menu_items$: Observable<MenuItem[]>;
+  private cUser: CurrentUserService;
+  private router: Router;
 
-  constructor(menu: MenuService, cUser: CurrentUserService) {
-    console.log(cUser.getAuthLevel());
-    menu.setMenuType(cUser.getAuthLevel());
-    this.menu$ = menu.getMenu();
+  constructor(cUser: CurrentUserService, router: Router) {
+
+    this.cUser = cUser;
+    this.router = router;
   }
 
   ngOnInit() {
-    this.menu$.subscribe(menu => {
-      this.menu_items$ = of(menu.menuItems);
-    });
+  }
+  private go(str: String): void
+  {
+    this.router.navigate([str]);
+  }
+  private logout(): void
+  {
+    this.cUser.logout();
+    this.go('/index');
   }
 
 }
