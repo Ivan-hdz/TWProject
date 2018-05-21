@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, NgModule} from '@angular/core';
 import {CurrentUserService} from './services/current-user.service';
 import {Router} from '@angular/router';
 
@@ -13,3 +13,4 @@ export class RedirectComponent {
     }
   }
 }
+

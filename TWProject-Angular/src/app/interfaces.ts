@@ -4,6 +4,8 @@ export interface UserInterface
   username: String;
   authLevel: Number;
   password: String;
+  refNum: Number;
+  actualBtnLabel: String;
 }
 
 export interface UsersInterface
@@ -13,8 +15,9 @@ export interface UsersInterface
 
 export interface RESTStatus
 {
-  status: String;
-  message: String;
+  status: Number;
+  body: String;
+  title: String;
 }
 
 export interface MenuItem
@@ -26,3 +29,5 @@ export interface Menu
 {
   menuItems: MenuItem[];
 }
+
+

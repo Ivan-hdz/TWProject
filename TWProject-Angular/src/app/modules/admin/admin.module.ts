@@ -1,11 +1,17 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {AdminUsersManagerComponent} from '../../admin-users-manager/admin-users-manager.component';
+import {AppModule} from '../../app.module';
+import {SharedModule} from '../base/shared.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    NgbModule
   ],
-  declarations: [],
+  declarations: [AdminUsersManagerComponent],
   providers: []
 })
 export class AdminModule { }

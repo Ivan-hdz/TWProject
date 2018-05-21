@@ -1,15 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('~bootstrap/dist/css/bootstrap.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 .vertical-center {
-  min-height: 93.7%;
-  min-height: 93.7vh;
+  min-height: 95.3%;
+  min-height: 95.3vh;
 
   display: flex;
   align-items: center;
 }
-.container
+.material-icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+.black-141414
 {
-  padding: 2%;
-  border-radius: 15px;
+  color: #141414;
+}
+.white-f9f9f9
+{
   color: #f9f9f9;
+}
+.red-EA2027
+{
+  color: #EA2027;
+}
+.nav-link
+{
+  cursor: pointer;
 }

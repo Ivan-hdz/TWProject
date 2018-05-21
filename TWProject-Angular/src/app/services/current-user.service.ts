@@ -79,7 +79,7 @@ export class CurrentUserService {
   }
 
   public clearUser() {
-    this._user = { nickname: '', username: '', authLevel: -1, password: ''};
+    this._user = <UserInterface>{};
     localStorage.user = JSON.stringify(this._user);
   }
 

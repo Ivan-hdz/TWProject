@@ -14,12 +14,14 @@ import {AdminModule} from './modules/admin/admin.module';
 import { MenuComponent } from './menu/menu.component';
 import {CurrentUserService} from './services/current-user.service';
 import {ParseFormatService} from './services/parse-format.service';
-import {RedirectComponent} from './redirect.component';
 import {CommonModule} from '@angular/common';
+import { AdminUsersManagerComponent } from './admin-users-manager/admin-users-manager.component';
+import {SharedModule} from './modules/base/shared.module';
 
 const routes: Routes = [
   { path: 'index', component: AuthComponent},
   { path: 'home', component: HomeComponent },
+  { path: 'admin-users', component: AdminUsersManagerComponent},
   { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -31,19 +33,17 @@ const routes: Routes = [
     PageNotFoundComponent,
     SignUpComponent,
     AuthComponent,
-    HomeComponent,
-    MenuComponent,
-    RedirectComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
     BrowserModule,
-    NgbModule.forRoot(),
-    RESTModule,
-    AdminModule
+    NgbModule,
+    AdminModule,
+    SharedModule
   ],
-  providers: [CurrentUserService, ParseFormatService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,39 @@
+<app-redirect-if-not-logged></app-redirect-if-not-logged>
+<app-menu></app-menu>
+<div class="container ">
+  <div class="container">
+    <div [hidden]="myAlert.hidden">
+      <ngb-alert type="{{myAlert.type}}" [dismissible]="true" (close)="myAlert.hidden = true" >
+        <strong>{{myAlert.title}} </strong> {{myAlert.body}}
+      </ngb-alert>
+    </div>
+    <h2>Usuarios registrados</h2>
+    <table class="table">
+      <thead class="thead-dark text-center">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre de usuario</th>
+        <th scope="col">Nombre a mostrar</th>
+        <th scope="col">Tipo de usuario</th>
+        <th scope="col" colspan="2">Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usr of (registrdUsers$ | async)">
+          <th scope="row">{{usr.refNum}}</th>
+          <td><input [name]="usr.username" type="text" class="form-control" value="{{usr.username}}" disabled /></td>
+          <td><input [name]="usr.username" type="text" class="form-control" value="{{usr.nickname}}" disabled /></td>
+          <td>
+            <select [name]="usr.username" #auL (change)="usr.authLevel = auL.value" class="form-control" disabled>
+              <option [selected]="usr.authLevel == 0" value="0">Administrador</option>
+              <option [selected]="usr.authLevel == 1" value="1">Profesor</option>
+              <option [selected]="usr.authLevel == 2" value="2">Alumno</option>
+            </select>
+          </td>
+          <td><button [id]="usr.username" class="btn-link btn" (click)="edit(usr)">{{usr.actualBtnLabel}}</button></td>
+          <td><button class="btn-link btn" (click)="deleteUsr(usr)">Eliminar usuario</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

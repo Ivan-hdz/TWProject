@@ -3,27 +3,50 @@
 <div *ngIf="cUser.getAuthLevel() == 2; then menuAlumno "></div>
 
 <ng-template #menuAdmin>
-  <div class="my-menu">
-    <button class="btn btn-outline-primary disabled my-menu-nick">{{cUser.getNickname()}}</button>
-    <button class="btn btn-outline-primary my-btn" (click)="go('/home')" >Inicio</button>
-    <button class="btn btn-outline-primary my-btn" (click)="go('/admin-users')" >Administrador de usuarios</button>
-    <button class="btn btn-outline-primary my-btn" (click)="logout()" >Cerrar sesión</button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand " href="#" (click)="go('/home')">{{cUser.getNickname()}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navExpanded" aria-controls="navExpanded" aria-expanded="false" aria-label="Abrir menu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navExpanded">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link {{router.url.indexOf('/home') >= 0 ? 'active' : ''}} " (click)="go('/home')"><i class="material-icons">home</i> Inicio</a>
+      <a class="nav-item nav-link {{router.url.indexOf('/admin-users') >= 0 ? 'active' : ''}} " (click)="go('/admin-users')"> <i class="material-icons">supervised_user_circle</i>Administrador de usuarios</a>
+      <a class="nav-item nav-link" (click)="logout()"> <i class="material-icons red-EA2027">power_settings_new</i> Cerrar sesión</a>
+    </div>
   </div>
+  </nav>
 </ng-template>
+
 <ng-template #menuProf>
-  <div class="my-menu">
-    <button class="btn btn-outline-primary disabled my-menu-nick">{{cUser.getNickname()}}</button>
-    <button class="btn btn-outline-primary my-btn" (click)="go('/home')" >Inicio</button>
-    <button class="btn btn-outline-primary my-btn" (click)="go('/gestionar-secciones')" >Gestionar secciones</button>
-    <button class="btn btn-outline-primary my-btn" (click)="go('/gestionar-actividades')" >Gestionar actividades</button>
-    <button class="btn btn-outline-primary my-btn" (click)="logout()" >Cerrar sesión</button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand " href="#" (click)="go('/home')">{{cUser.getNickname()}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navExpanded" aria-controls="navExpanded" aria-expanded="false" aria-label="Abrir menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="navExpanded2">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link {{router.url.indexOf('/home') >= 0 ? 'active' : ''}} " (click)="go('/home')"><i class="material-icons">home</i> Inicio</a>
+      <a class="nav-item nav-link {{router.url.indexOf('/gestionar-secciones') >= 0 ? 'active' : ''}} " (click)="go('/gestionar-secciones')"> <i class="material-icons">supervised_user_circle</i>Gestionar secciones</a>
+      <a class="nav-item nav-link {{router.url.indexOf('/gestionar-actividades') >= 0 ? 'active' : ''}} " (click)="go('/gestionar-actividades')"> <i class="material-icons">folder_open</i>Gestionar actividades</a>
+      <a class="nav-item nav-link" (click)="logout()"> <i class="material-icons red-EA2027">power_settings_new</i> Cerrar sesión</a>
+    </div>
   </div>
+  </nav>
 </ng-template>
+
 <ng-template #menuAlumno>
-  <div class="my-menu">
-    <button class="btn btn-outline-primary disabled my-menu-nick">{{cUser.getNickname()}}</button>
-    <button class="btn btn-outline-primary my-btn" (click)="go('/home')" >Inicio</button>
-    <button class="btn btn-outline-primary my-btn" (click)="go('/hacer-actividad')" >Realizar actividad</button>
-    <button class="btn btn-outline-primary my-btn" (click)="logout()" >Cerrar sesión</button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand " href="#" (click)="go('/home')">{{cUser.getNickname()}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navExpanded" aria-controls="navExpanded" aria-expanded="false" aria-label="Abrir menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="navExpanded3">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link {{router.url.indexOf('/home') >= 0 ? 'active' : ''}} " (click)="go('/home')"><i class="material-icons">home</i> Inicio</a>
+      <a class="nav-item nav-link {{router.url.indexOf('/hacer-actividad') >= 0 ? 'active' : ''}} " (click)="go('/hacer-actividad')"> <i class="material-icons">supervised_user_circle</i>Comenzar a estudiar</a>
+      <a class="nav-item nav-link" (click)="logout()"> <i class="material-icons red-EA2027">power_settings_new</i> Cerrar sesión</a>
+    </div>
   </div>
+  </nav>
 </ng-template>
