@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE User SYSTEM "users.dtd">
+<users>
+    <user>
+        <username>Administrador</username>
+        <nickname>Administrador</nickname>
+        <password>admin</password>
+        <authLevel>0</authLevel>
+  </user>
+</users>

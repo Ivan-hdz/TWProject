@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE User SYSTEM "user.dtd">
+
+<user>
+    <username>honte</username>
+    <nickname>ivan hdz</nickname>
+    <password>aloo</password>
+    <authLevel>0</authLevel>
+</user>

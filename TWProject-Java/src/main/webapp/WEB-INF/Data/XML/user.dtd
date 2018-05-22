@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT User ((username, nickname, password, authLevel))>
+<!ELEMENT username (#PCDATA) >
+<!ELEMENT password (#PCDATA) >
+<!ELEMENT nickname (#PCDATA) >
+<!ELEMENT authLevel (#PCDATA) >
+
