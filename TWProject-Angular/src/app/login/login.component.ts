@@ -25,8 +25,7 @@ export class LoginComponent implements OnInit {
     this.cUser.clearUser();
     this.cUser.setUsername(user);
     this.cUser.setPassword(pass);
-    if(this.cUser.login())
-    {
+    if (this.cUser.login()) {
       this.router.navigate(['/home']);
     } else {
       return false;

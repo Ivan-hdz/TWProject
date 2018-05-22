@@ -1,4 +1,4 @@
-
+export const restEndpoint = 'http://localhost/TWJavaProject';
 export const userSacc_test = '<users>\n' +
   '\t<user>\n' +
   '\t\t<username>IvanHonter</username>\n' +

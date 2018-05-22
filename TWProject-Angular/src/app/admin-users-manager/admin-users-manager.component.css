@@ -1,5 +1,10 @@
 .my-table
 {
-  margin-top: 5%;
-  width: available;
+  background-color: #f9f9f9;
+  border: 1px solid #141414;
+  border-radius: 5px;
+  padding: 10px;
+}
+.row{
+  margin-bottom: 10px;
 }

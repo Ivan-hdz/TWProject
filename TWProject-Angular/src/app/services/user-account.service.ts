@@ -1,67 +1,93 @@
 import {Injectable} from '@angular/core';
 import {UserInterface, UsersInterface, RESTStatus} from '../interfaces';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
 import {ParseFormatService} from './parse-format.service';
-import {restStatus_test, userSacc_test, usertAcc_test} from '../shared/values/strings';
+import {restEndpoint, restStatus_test, userSacc_test, usertAcc_test} from '../shared/values/strings';
 
 @Injectable()
 export class UserAccountService {
 
   private http: HttpClient;
   private parser: ParseFormatService;
+  private  headers: HttpHeaders;
 
   constructor(http: HttpClient, parser: ParseFormatService) {
     this.http = http;
     this.parser = parser;
-
   }
 
   // GET METHOD
   public getUsers(): Observable<UsersInterface> {
-      return this.getUsersHttpRequest().pipe(map(data => data = this.parser.xmlToJson(data)));
+      return this.getUsersHttpRequest().pipe(map(data => this.parser.xmlToJson(data)));
   }
 
-  private getUsersHttpRequest() {
-    return of(userSacc_test);
-    // return this.http.get('http://localhost:8080/rest/users');
+  private getUsersHttpRequest(): Observable<String> {
+    // return of(userSacc_test);
+    return this.http.get<String>(restEndpoint + '/rest/users', {responseType: 'text' as 'json'});
   }
 
   public getUser(username: String): Observable<UserInterface> {
     return this.getUserHttpRequest(username).pipe(map(data => data = this.parser.xmlToJson(data)));
   }
 
-  private getUserHttpRequest(username: String) {
-    return of(usertAcc_test);
-    // return this.http.get('http://localhost:8080/rest/users/' + username);
+  private getUserHttpRequest(username: String): Observable<String> {
+    // return of(usertAcc_test);
+     return this.http.get<String>(restEndpoint + '/rest/users/' + username, {responseType: 'text' as 'json'});
   }
   // POST
   public postUser(user: UserInterface): Observable<RESTStatus> {
     return this.postUserHttpRequest(user).pipe(map(data => data = this.parser.xmlToJson(data)));
   }
 
-  private postUserHttpRequest(newUser: UserInterface) {
-    return of(restStatus_test);
-    // return this.http.post('http://localhost:8080/rest/users', newUser);
+  private postUserHttpRequest(newUser: UserInterface): Observable<String> {
+    // return of(restStatus_test);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/xml'
+      }),
+      responseType: 'text' as 'json',
+      params: {'user': JSON.stringify(this.cleanObject(newUser))}
+    };
+     return this.http.post<String>(restEndpoint + '/rest/users', null, httpOptions);
   }
   // PUT
   public putUser(user: UserInterface): Observable<RESTStatus> {
     return this.putUserHttpMethod(user).pipe(map(data => data = this.parser.xmlToJson(data)));
   }
 
-  private putUserHttpMethod(user: UserInterface) {
-    return of(restStatus_test);
-    // return this.http.put('http://localhost:8080/rest/users/' + user.username, user);
+  private putUserHttpMethod(user: UserInterface): Observable<String> {
+    // return of(restStatus_test);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/xml'
+      }),
+      responseType: 'text' as 'json',
+      params: {'user': JSON.stringify(this.cleanObject(user))}
+    };
+    return this.http.put<String>(restEndpoint + '/rest/users', null, httpOptions);
   }
   // DELETE
   public deleteUser(user: UserInterface): Observable<RESTStatus> {
     return this.deleteUserHttpMethod(user).pipe(map(data => data = this.parser.xmlToJson(data)));
   }
 
-  private deleteUserHttpMethod(user: UserInterface) {
-    return of(restStatus_test);
-    // return this.http.delete('http://localhost:8080/rest/users/' + user.username);
+  private deleteUserHttpMethod(user: UserInterface): Observable<String> {
+    // return of(restStatus_test);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/xml'
+      }),
+      responseType: 'text' as 'json'
+    };
+    return this.http.delete<String>(restEndpoint + '/rest/users/' + user.username, httpOptions);
+  }
+  private cleanObject(user: UserInterface) {
+    return Object({username: user.username,
+      nickname: user.nickname,
+      password: user.password,
+      authLevel: user.authLevel});
   }
 }

@@ -48,3 +48,41 @@ export class MyBootstrapAlert
     }
   }
 }
+export class User
+{
+  get nickname(): String {
+    return this._nickname;
+  }
+
+  set nickname(value: String) {
+    this._nickname = value;
+  }
+
+  get username(): String {
+    return this._username;
+  }
+
+  set username(value: String) {
+    this._username = value;
+  }
+
+  get authLevel(): Number {
+    return this._authLevel;
+  }
+
+  set authLevel(value: Number) {
+    this._authLevel = value;
+  }
+
+  get password(): String {
+    return this._password;
+  }
+
+  set password(value: String) {
+    this._password = value;
+  }
+  private _nickname: String;
+  private _username: String;
+  private _authLevel: Number;
+  private _password: String;
+}

@@ -9,7 +9,7 @@ export class ParseFormatService
   public xmlToJson(xml: String)
   {
     let res;
-    parseString(xml, {explicitArray: false, explicitRoot: false }, (err, result) => {
+    parseString(xml, {explicitArray: true, explicitRoot: false }, (err, result) => {
       if(err) {
         res = err;
       } else {

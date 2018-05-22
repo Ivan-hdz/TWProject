@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {UserInterface} from '../interfaces';
-import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs';
-import {usertAcc_test} from '../shared/values/strings';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {restEndpoint, usertAcc_test} from '../shared/values/strings';
 import {ParseFormatService} from './parse-format.service';
 import {map} from 'rxjs/internal/operators';
 
@@ -55,9 +55,10 @@ export class CurrentUserService {
 
   public login(): Boolean {
     // Aqui mando un request de login y me devuelve el authLevel
-    this.loginHttpRequest().pipe(map(usrXML => usrXML = this.parser.xmlToJson(usrXML))).subscribe(usr => {
+    this.loginHttpRequest(this.getUsername(), this._user.password).pipe(map(usrXML =>  this.parser.xmlToJson(usrXML))).subscribe(usr => {
       if(usr.username != 'error')
       {
+        //console.log(usr);
         this.loggedIn = true;
         this._user.authLevel = usr.authLevel;
         this._user.nickname = usr.nickname;
@@ -66,7 +67,7 @@ export class CurrentUserService {
         localStorage.user = JSON.stringify(this._user);
         localStorage.logged = 'true';
       } else {
-        this.clearUser();
+        this.logout();
       }
     });
     return this.isLoggedIn();
@@ -83,8 +84,17 @@ export class CurrentUserService {
     localStorage.user = JSON.stringify(this._user);
   }
 
-  private loginHttpRequest() {
-   return of(usertAcc_test);
-    // return this.http.post(restEndpoint + '/rest/login', this._user)
+  private loginHttpRequest(usr: String, pass: String): Observable<String> {
+   // return of(usertAcc_test);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/xml'
+      }),
+      responseType: 'text' as 'json',
+      params: {'username': this.getUsername().toString(), 'password': this._user.password.toString()  }
+    };
+    console.log(this.getUsername().toString());
+    console.log(this._user.password.toString());
+    return this.http.post<String>(restEndpoint + '/rest/login', this._user, httpOptions);
   }
 }
