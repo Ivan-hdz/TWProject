@@ -9,8 +9,8 @@ import {Router} from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  private cUser: CurrentUserService;
-  private router: Router;
+  public cUser: CurrentUserService;
+  public router: Router;
 
   constructor(cUser: CurrentUserService, router: Router) {
 
@@ -20,11 +20,11 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
   }
-  private go(str: String): void
+  public go(str: String): void
   {
     this.router.navigate([str]);
   }
-  private logout(): void
+  public logout(): void
   {
     this.cUser.logout();
     this.go('/index');

@@ -9,7 +9,7 @@ import {CurrentUserService} from '../services/current-user.service';
 })
 export class AuthComponent implements OnInit {
 
-  private cUser: CurrentUserService;
+  public cUser: CurrentUserService;
 
   constructor(cUser: CurrentUserService) {
     this.cUser = cUser;

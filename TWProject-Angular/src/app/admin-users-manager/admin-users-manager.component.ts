@@ -14,11 +14,11 @@ declare let JQuery: any;
 })
 export class AdminUsersManagerComponent implements OnInit {
 
-  private accMge: UserAccountService;
-  private registrdUsers$: Observable<UserInterface[]>;
-  private myAlert: MyBootstrapAlert;
-  private cacheUsers: UsersInterface;
-  private sType: Number;
+  public accMge: UserAccountService;
+  public registrdUsers$: Observable<UserInterface[]>;
+  public myAlert: MyBootstrapAlert;
+  public cacheUsers: UsersInterface;
+  public sType: Number;
 
   constructor(am: UserAccountService) {
     this.myAlert = new MyBootstrapAlert();
@@ -30,7 +30,7 @@ export class AdminUsersManagerComponent implements OnInit {
   ngOnInit() {
     this.refreshUsers();
   }
-  private refreshUsers() {
+  public refreshUsers() {
     this.accMge.getUsers().subscribe(users => {
 
       for (let i = 0; i < users.user.length; i++) {
@@ -41,7 +41,7 @@ export class AdminUsersManagerComponent implements OnInit {
       this.registrdUsers$ = of(users.user);
     });
   }
-  private deleteUsr(usr: UserInterface) {
+  public deleteUsr(usr: UserInterface) {
     this.accMge.deleteUser(usr).subscribe(result => {
       this.myAlert.fromRESTStatus(result);
       this.myAlert.hidden = false;
@@ -49,7 +49,7 @@ export class AdminUsersManagerComponent implements OnInit {
     });
   }
 
-  private edit(usr: UserInterface) {
+  public edit(usr: UserInterface) {
     const buf: UserInterface = <UserInterface>{};
     if (usr.actualBtnLabel === 'Guardar') { // Si al presionar el boton tiene el texto guardar en vez de modificar usuario
       const arrHtmlEl = $('[name=' + usr.username + ']');
@@ -76,7 +76,7 @@ export class AdminUsersManagerComponent implements OnInit {
     });
   }
 
-  private  newUser(nUsrName: HTMLInputElement, nNick: HTMLInputElement, nPass: HTMLInputElement, nAuth: HTMLSelectElement) {
+  public  newUser(nUsrName: HTMLInputElement, nNick: HTMLInputElement, nPass: HTMLInputElement, nAuth: HTMLSelectElement) {
     const nUser: UserInterface = <UserInterface>{};
     nUser.username = nUsrName.value;
     nUser.nickname = nNick.value;
@@ -94,7 +94,7 @@ export class AdminUsersManagerComponent implements OnInit {
       this.refreshUsers();
     });
   }
-  private search(txt: String) {
+  public search(txt: String) {
     const arr: UserInterface[] = new Array<UserInterface>();
     this.cacheUsers.user.forEach(usr => {
       if (usr.username.indexOf( txt.toString() ) >= 0 && this.sType === 0) {
