@@ -6,5 +6,6 @@
         <nickname>Administrador</nickname>
         <password>admin</password>
         <authLevel>0</authLevel>
+        <sessionToken></sessionToken>
   </user>
 </users>

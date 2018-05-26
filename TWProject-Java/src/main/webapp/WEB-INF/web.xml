@@ -8,6 +8,14 @@
         <servlet-name>login</servlet-name>
         <servlet-class>rest.login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>auth</servlet-name>
+        <servlet-class>rest.auth</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>rest.logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>users</servlet-name>
         <url-pattern>/rest/users/*</url-pattern>
@@ -16,25 +24,17 @@
         <servlet-name>login</servlet-name>
         <url-pattern>/rest/login/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>auth</servlet-name>
+        <url-pattern>/rest/auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/rest/logout</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-     <filter>
-        <filter-name>CorsFilter</filter-name>
-        <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
-        <init-param>
-            <param-name>cors.allowed.origins</param-name>
-            <param-value>*</param-value>
-        </init-param>
-        <init-param>
-            <param-name>cors.allowed.methods</param-name>
-            <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>CorsFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-  </filter-mapping>
 </web-app>

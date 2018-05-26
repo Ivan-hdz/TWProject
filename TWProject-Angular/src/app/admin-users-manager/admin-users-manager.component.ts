@@ -3,6 +3,7 @@ import {UserAccountService} from '../services/user-account.service';
 import {Observable, of} from 'rxjs';
 import {UserInterface, UsersInterface} from '../interfaces';
 import {MyBootstrapAlert, User} from '../clases';
+import {isSubstring} from '../shared/values/strings';
 
 declare let $: any;
 declare let JQuery: any;
@@ -97,7 +98,7 @@ export class AdminUsersManagerComponent implements OnInit {
   public search(txt: String) {
     const arr: UserInterface[] = new Array<UserInterface>();
     this.cacheUsers.user.forEach(usr => {
-      if (usr.username.indexOf( txt.toString() ) >= 0 && this.sType === 0) {
+      if (isSubstring(usr.username.toString(), txt.toString()) && this.sType === 0) {
         arr.push(usr);
       }
       if (usr.nickname.indexOf( txt.toString() ) >= 0 && this.sType === 1) {

@@ -6,4 +6,5 @@
     <nickname>ivan hdz</nickname>
     <password>aloo</password>
     <authLevel>0</authLevel>
+    <sessionToken></sessionToken>
 </user>

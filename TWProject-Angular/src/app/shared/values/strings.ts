@@ -1,4 +1,5 @@
-export const restEndpoint = 'http://' + window.location.host + '/TWJavaProject';
+// export const restEndpoint = 'http://' + window.location.host + '/TWJavaProject';
+export const restEndpoint = 'http://localhost:8080/TWJavaProject';
 export const userSacc_test = '<users>\n' +
   '\t<user>\n' +
   '\t\t<username>IvanHonter</username>\n' +
@@ -24,3 +25,12 @@ export const restStatus_test = '<restStatus>' +
   '<title>Éxito</title>' +
   '<body>Se ha modificado exitosamente la wea</body>' +
   '</restStatus>';
+export function isSubstring(str: string, sub: string) {
+  let f = 1;
+  for (let i = 0; i < sub.length; i ++) {
+    if (sub[i] !== str[i]) {
+      return false;
+    }
+  }
+  return true;
+}

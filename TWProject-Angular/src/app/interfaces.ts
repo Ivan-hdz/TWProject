@@ -4,6 +4,7 @@ export interface UserInterface
   username: String;
   authLevel: Number;
   password: String;
+  sessionToken: String;
   refNum: Number;
   actualBtnLabel: String;
 }

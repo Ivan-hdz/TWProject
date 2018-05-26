@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UserInterface} from '../interfaces';
+import {RESTStatus, UserInterface} from '../interfaces';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {restEndpoint, usertAcc_test} from '../shared/values/strings';
@@ -49,8 +49,19 @@ export class CurrentUserService {
     return this._user.authLevel;
   }
 
-  public isLoggedIn() {
+  public isLoggedIn()
+  {
     return this.loggedIn;
+  }
+  public isAuth(): boolean{
+    this.authHttpRequest(this._user.sessionToken).subscribe(result => {
+      if (result.status[0] >= 200 && result.status[0] < 400) {
+        this.loggedIn = true;
+      } else {
+        this.loggedIn = false;
+      }
+      }).unsubscribe();
+    return this.loggedIn.valueOf();
   }
 
   public login(): Boolean {
@@ -58,30 +69,29 @@ export class CurrentUserService {
     this.loginHttpRequest(this.getUsername(), this._user.password).pipe(map(usrXML =>  this.parser.xmlToJson(usrXML))).subscribe(usr => {
       if(usr.username != 'error')
       {
-        //console.log(usr);
+        // console.log(usr);
         this.loggedIn = true;
         this._user.authLevel = usr.authLevel;
         this._user.nickname = usr.nickname;
         this._user.username = usr.username;
         this._user.password = '';
+        this._user.sessionToken = usr.sessionToken;
         localStorage.user = JSON.stringify(this._user);
         localStorage.logged = 'true';
-      } else {
-        this.logout();
       }
     });
     return this.isLoggedIn();
   }
 
   public logout() {
+    this.http.get(restEndpoint + '/rest/logout');
     this.clearUser();
-    this.loggedIn = false;
-    localStorage.logged = 'false';
   }
 
   public clearUser() {
-    this._user = <UserInterface>{};
-    localStorage.user = JSON.stringify(this._user);
+    this.loggedIn = false;
+    localStorage.user = JSON.stringify(<UserInterface>{});
+    localStorage.logged = 'false';
   }
 
   private loginHttpRequest(usr: String, pass: String): Observable<String> {
@@ -97,4 +107,9 @@ export class CurrentUserService {
     console.log(this._user.password.toString());
     return this.http.post<String>(restEndpoint + '/rest/login', this._user, httpOptions);
   }
+  private authHttpRequest(token: String): Observable<RESTStatus> {
+    return this.http.get(restEndpoint + '/rest/auth?token=' + this._user.sessionToken, {responseType: 'text' as 'json'})
+      .pipe(map(restStatus => this.parser.xmlToJson(restStatus.toString())));
+  }
+
 }

@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE User SYSTEM "users.dtd">
-<users>
-    <user>
-        <username>Administrador</username>
-        <nickname>Administrador</nickname>
-        <password>admin</password>
-        <authLevel>0</authLevel>
-  </user>
-</users>
+<users><user><username>Administrador</username><nickname>Administrador</nickname><authLevel>0</authLevel><password>admin</password><sessionToken></sessionToken></user><user><username>Octavio</username><nickname>a</nickname><authLevel>1</authLevel><password>dfs</password><sessionToken/></user><user><username>Octopus</username><nickname>sda</nickname><authLevel>1</authLevel><password>dasda</password><sessionToken/></user><user><username>Octopodo</username><nickname>asdasd</nickname><authLevel>2</authLevel><password>ads</password><sessionToken/></user></users>

@@ -16,6 +16,10 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
 
+  }
+  public check()
+  {
+    return this.cUser.isAuth();
+  }
 }
