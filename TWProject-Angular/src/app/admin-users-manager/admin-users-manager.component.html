@@ -1,91 +1,94 @@
 <app-redirect-if-not-logged></app-redirect-if-not-logged>
 <app-menu></app-menu>
-<div class="container ">
-  <div class="container">
-    <div [hidden]="myAlert.hidden">
-      <ngb-alert type="{{myAlert.type}}" [dismissible]="true" (close)="myAlert.hidden = true" >
-        <strong>{{myAlert.title}} </strong> {{myAlert.body}}
-      </ngb-alert>
+<app-access-denied-page [authLevelRequired]="0">
+    <div class="container">
+      <div class="container">
+        <div [hidden]="myAlert.hidden">
+          <ngb-alert type="{{myAlert.type}}" [dismissible]="true" (close)="myAlert.hidden = true" >
+            <strong>{{myAlert.title}} </strong> {{myAlert.body}}
+          </ngb-alert>
+        </div>
+        <br>
+        <div class="table my-table">
+          <div class="row">
+            <div class="col">
+              <h2 >Usuarios registrados</h2>
+            </div>
+            <div class="col text-lg-right">
+              <button data-toggle="collapse" data-target="#nuevo" class="btn btn-outline-dark">Agregar usuario ...</button>
+            </div>
+          </div>
+          <div id="nuevo" class="collapse">
+            <div class="row">
+              <div class="col">
+                <input type="text" #nUsername class="form-control" placeholder="Nombre de usuario" />
+              </div>
+              <div class="col">
+                <input type="text" #nNickname class="form-control" placeholder="Nombre a mostrar (nickname)" />
+              </div>
+              <div class="col">
+                <input type="password" #nPassword class="form-control" placeholder="Contraseña" />
+              </div>
+              <div class="col">
+                <select  #nAuthLevel class="form-control">
+                  <option value="0">Administrador</option>
+                  <option value="1">Profesor</option>
+                  <option value="2">Alumno</option>
+                </select>
+              </div>
+              <div class="col text-lg-right">
+                <button (click)="newUser(nUsername, nNickname, nPassword, nAuthLevel)" class="btn btn-outline-success">Crear nuevo usuario</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h3>Buscar: </h3>
+            </div>
+            <div class="col">
+              <input placeholder="Algo" type="text" #searchVal class="form-control" (keyup)="search(searchVal.value)" />
+            </div>
+            <div class="col">
+              <h3> por: </h3>
+            </div>
+            <div class="col">
+              <select  #searchType (change)="sType = searchType.value" class="form-control">
+                <option value="0">Nombre de usuario</option>
+                <option value="1">Nickname</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <table class="table">
+          <thead class="thead-dark text-center">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre de usuario</th>
+            <th scope="col">Nombre a mostrar</th>
+            <th scope="col">Contraseña</th>
+            <th scope="col">Tipo de usuario</th>
+            <th scope="col" colspan="2">Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let usr of (registrdUsers$ | async)">
+            <th scope="row">{{usr.refNum}}</th>
+            <td><input type="text" class="form-control" value="{{usr.username}}" disabled /></td>
+            <td><input [name]="usr.username == 'Administrador' ? '' : usr.username" type="text" class="form-control" value="{{usr.nickname}}" disabled /></td>
+            <td><input [name]="usr.username" type="password" class="form-control" value="{{usr.password}}" disabled /></td>
+            <td>
+              <select [name]="usr.username == 'Administrador' ? '' : usr.username" #auL (change)="usr.authLevel = auL.value" class="form-control" disabled>
+                <option [selected]="usr.authLevel == 0" value="0">Administrador</option>
+                <option [selected]="usr.authLevel == 1" value="1">Profesor</option>
+                <option [selected]="usr.authLevel == 2" value="2">Alumno</option>
+              </select>
+            </td>
+            <td><button [id]="usr.username" class="btn-link btn"  (click)="edit(usr)">{{usr.actualBtnLabel}}</button></td>
+            <td><button class="btn-link btn" [disabled]="usr.username == 'Administrador'" (click)="deleteUsr(usr)">Eliminar usuario</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <br>
-    <div class="table my-table">
-      <div class="row">
-        <div class="col">
-          <h2 >Usuarios registrados</h2>
-        </div>
-        <div class="col text-lg-right">
-          <button data-toggle="collapse" data-target="#nuevo" class="btn btn-outline-dark">Agregar usuario ...</button>
-        </div>
-      </div>
-      <div id="nuevo" class="collapse">
-        <div class="row">
-          <div class="col">
-            <input type="text" #nUsername class="form-control" placeholder="Nombre de usuario" />
-          </div>
-          <div class="col">
-            <input type="text" #nNickname class="form-control" placeholder="Nombre a mostrar (nickname)" />
-          </div>
-          <div class="col">
-            <input type="password" #nPassword class="form-control" placeholder="Contraseña" />
-          </div>
-          <div class="col">
-            <select  #nAuthLevel class="form-control">
-              <option value="0">Administrador</option>
-              <option value="1">Profesor</option>
-              <option value="2">Alumno</option>
-            </select>
-          </div>
-          <div class="col text-lg-right">
-            <button (click)="newUser(nUsername, nNickname, nPassword, nAuthLevel)" class="btn btn-outline-success">Crear nuevo usuario</button>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <h3>Buscar: </h3>
-        </div>
-        <div class="col">
-          <input placeholder="Algo" type="text" #searchVal class="form-control" (keyup)="search(searchVal.value)" />
-        </div>
-        <div class="col">
-          <h3> por: </h3>
-        </div>
-        <div class="col">
-          <select  #searchType (change)="sType = searchType.value" class="form-control">
-            <option value="0">Nombre de usuario</option>
-            <option value="1">Nickname</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <table class="table">
-      <thead class="thead-dark text-center">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre de usuario</th>
-        <th scope="col">Nombre a mostrar</th>
-        <th scope="col">Contraseña</th>
-        <th scope="col">Tipo de usuario</th>
-        <th scope="col" colspan="2">Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usr of (registrdUsers$ | async)">
-          <th scope="row">{{usr.refNum}}</th>
-          <td><input type="text" class="form-control" value="{{usr.username}}" disabled /></td>
-          <td><input [name]="usr.username == 'Administrador' ? '' : usr.username" type="text" class="form-control" value="{{usr.nickname}}" disabled /></td>
-          <td><input [name]="usr.username" type="password" class="form-control" value="{{usr.password}}" disabled /></td>
-          <td>
-            <select [name]="usr.username == 'Administrador' ? '' : usr.username" #auL (change)="usr.authLevel = auL.value" class="form-control" disabled>
-              <option [selected]="usr.authLevel == 0" value="0">Administrador</option>
-              <option [selected]="usr.authLevel == 1" value="1">Profesor</option>
-              <option [selected]="usr.authLevel == 2" value="2">Alumno</option>
-            </select>
-          </td>
-          <td><button [id]="usr.username" class="btn-link btn"  (click)="edit(usr)">{{usr.actualBtnLabel}}</button></td>
-          <td><button class="btn-link btn" [disabled]="usr.username == 'Administrador'" (click)="deleteUsr(usr)">Eliminar usuario</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+</app-access-denied-page>
+

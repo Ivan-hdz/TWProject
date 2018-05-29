@@ -19,10 +19,18 @@ export class CurrentUserService {
     this.parser = parser;
     if (localStorage.user) {
       this._user = JSON.parse(localStorage.user);
+    } else {
+      this._user = <UserInterface>{};
     }
     if (localStorage.logged) {
       this.loggedIn = JSON.parse(localStorage.logged);
+    } else {
+      this.loggedIn = false;
     }
+  }
+
+  public getCurrentUser(): UserInterface {
+    return this._user;
   }
 
   public setUsername(usrname: String) {
@@ -45,7 +53,7 @@ export class CurrentUserService {
     return this._user.nickname;
   }
 
-  public getAuthLevel() {
+  public getAuthLevel(): Number {
     return this._user.authLevel;
   }
 
@@ -53,7 +61,8 @@ export class CurrentUserService {
   {
     return this.loggedIn;
   }
-  public isAuth(): boolean{
+  public isAuth(): boolean {
+
     this.authHttpRequest(this._user.sessionToken).subscribe(result => {
       if (result.status[0] >= 200 && result.status[0] < 400) {
         this.loggedIn = true;

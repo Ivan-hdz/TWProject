@@ -6,7 +6,7 @@
 }
 .bg-container-turq
 {
-  background-color: #00b894;
+  background-color: #2d3436;
 }
 .bg-turquesa
 {
@@ -17,4 +17,7 @@
   padding: 2%;
   border-radius: 15px;
   color: #f9f9f9;
+}
+input[type=password] {
+  border: 2px solid;
 }

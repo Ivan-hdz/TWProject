@@ -1,0 +1,12 @@
+<div *ngIf="authLevel == authLevelRequired; then show else error"></div>
+<ng-template #show>
+  <ng-content></ng-content>
+</ng-template>
+<ng-template #error>
+  <div class="vertical-center" >
+    <div class="container">
+      <h1>Error 401: Acceso denegado. .·´¯`(>▂<)´¯`·.</h1>
+    </div>
+  </div>
+</ng-template>
+

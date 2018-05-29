@@ -2,6 +2,8 @@ import {RESTStatus} from './interfaces';
 
 export class MyBootstrapAlert
 {
+  public static DANGER = 'danger';
+  public static SUCCESS = 'success';
   get type(): String {
     return this._type;
   }
@@ -37,14 +39,19 @@ export class MyBootstrapAlert
   private _title: String;
   private _body: String;
   private _hidden: Boolean;
-
+  public clearAlert() {
+    this.title = '';
+    this.type = '';
+    this.hidden = true;
+    this.body = '';
+  }
   public fromRESTStatus(result: RESTStatus) {
     this.title = result.title;
     this.body = result.body;
     if (result.status >= 200 && result.status < 400) {
-      this.type = 'success';
+      this.type = MyBootstrapAlert.SUCCESS;
     } else {
-      this.type = 'danger';
+      this.type = MyBootstrapAlert.DANGER;
     }
   }
 }

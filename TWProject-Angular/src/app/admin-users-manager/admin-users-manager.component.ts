@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {UserInterface, UsersInterface} from '../interfaces';
 import {MyBootstrapAlert, User} from '../clases';
 import {isSubstring} from '../shared/values/strings';
+import {CurrentUserService} from '../services/current-user.service';
 
 declare let $: any;
 declare let JQuery: any;
@@ -20,12 +21,14 @@ export class AdminUsersManagerComponent implements OnInit {
   public myAlert: MyBootstrapAlert;
   public cacheUsers: UsersInterface;
   public sType: Number;
+  public authLevel: Number;
 
-  constructor(am: UserAccountService) {
+  constructor(am: UserAccountService, currentUser: CurrentUserService) {
     this.myAlert = new MyBootstrapAlert();
     this.accMge = am;
     this.myAlert.hidden = true;
     this.sType = 0;
+    this.authLevel = currentUser.getAuthLevel();
   }
 
   ngOnInit() {
