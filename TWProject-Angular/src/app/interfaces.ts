@@ -21,14 +21,16 @@ export interface RESTStatus
   title: String;
 }
 
-export interface MenuItem
+export interface QuizInterface
 {
-  displayName: String;
+  id: number;
+  title: string;
+  description: string;
+  urlBody: string;
 }
 
-export interface Menu
+export interface QuizzesInterface
 {
-  menuItems: MenuItem[];
+  quiz: QuizInterface[];
 }
-
 

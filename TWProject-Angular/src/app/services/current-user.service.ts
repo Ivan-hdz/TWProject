@@ -93,7 +93,7 @@ export class CurrentUserService {
   }
 
   public logout() {
-    this.http.get(restEndpoint + '/rest/logout');
+    this.http.get(restEndpoint + '/service/logout');
     this.clearUser();
   }
 
@@ -114,10 +114,10 @@ export class CurrentUserService {
     };
     console.log(this.getUsername().toString());
     console.log(this._user.password.toString());
-    return this.http.post<String>(restEndpoint + '/rest/login', this._user, httpOptions);
+    return this.http.post<String>(restEndpoint + '/service/login', this._user, httpOptions);
   }
   private authHttpRequest(token: String): Observable<RESTStatus> {
-    return this.http.get(restEndpoint + '/rest/auth?token=' + this._user.sessionToken, {responseType: 'text' as 'json'})
+    return this.http.get(restEndpoint + '/service/auth?token=' + this._user.sessionToken, {responseType: 'text' as 'json'})
       .pipe(map(restStatus => this.parser.xmlToJson(restStatus.toString())));
   }
 

@@ -6,31 +6,41 @@
     </servlet>
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>rest.login</servlet-class>
+        <servlet-class>services.login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>auth</servlet-name>
-        <servlet-class>rest.auth</servlet-class>
+        <servlet-class>services.auth</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>logout</servlet-name>
-        <servlet-class>rest.logout</servlet-class>
+        <servlet-class>services.logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>quizzes</servlet-name>
+        <servlet-class>rest.quizzes</servlet-class>
+    </servlet>
+    <!-- Services Servlets -->
+    <servlet-mapping>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/service/login/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>auth</servlet-name>
+        <url-pattern>/service/auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/service/logout</url-pattern>
+    </servlet-mapping>
+    <!-- RESTful Servlets -->
     <servlet-mapping>
         <servlet-name>users</servlet-name>
         <url-pattern>/rest/users/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>login</servlet-name>
-        <url-pattern>/rest/login/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>auth</servlet-name>
-        <url-pattern>/rest/auth</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>logout</servlet-name>
-        <url-pattern>/rest/logout</url-pattern>
+        <servlet-name>quizzes</servlet-name>
+        <url-pattern>/rest/quizzes/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

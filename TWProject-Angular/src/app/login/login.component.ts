@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     this.cUser.setUsername(user);
     this.cUser.setPassword(pass);
     if (this.cUser.login() === true) {
+      this.myAlert.hidden = true;
       this.router.navigate(['/home']);
       return true;
     } else {
