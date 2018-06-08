@@ -11,4 +11,9 @@ package values;
  */
 public class Strings {
     public static final String usersXMLFile = "WEB-INF/Data/XML/users.xml";
+    public static final String quizzesXMLFolder = "WEB-INF/Quizzes";
+    public static String getQuizzesXMLFile(String usr)
+    {
+        return quizzesXMLFolder +"/" + usr + "/quizzesIndex.xml";
+    }
 }

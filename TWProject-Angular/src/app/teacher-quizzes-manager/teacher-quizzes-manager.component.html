@@ -1,5 +1,80 @@
 <app-redirect-if-not-logged></app-redirect-if-not-logged>
 <app-menu></app-menu>
 <app-access-denied-page [authLevelRequired]="1">
-  Hola Mundo, aqui va el ABCC de las actividades del profesor
+ <div>
+   <div [hidden]="myAlert.hidden">
+     <ngb-alert type="{{myAlert.type}}" [dismissible]="true" (close)="myAlert.hidden = true" >
+       <strong>{{myAlert.title}} </strong> {{myAlert.body}}
+     </ngb-alert>
+   </div>
+   <br>
+   <div class="padding-left-rigth" >
+     <div class="row">
+       <div class="col">
+         <h2 >Usuarios registrados</h2>
+       </div>
+       <div class="col text-lg-right">
+         <button mat-button color="primary" data-toggle="collapse" data-target="#nuevo">Agregar usuario ...</button>
+       </div>
+     </div>
+     <form (submit)="newActivity(title.value, descript.value, instruct.value)" id="nuevo" class="collapse ">
+       <div class="row">
+         <div class="col">
+           <mat-form-field>
+            <input required type="text" #title matInput placeholder="Título de la actividad" />
+           </mat-form-field>
+         </div>
+         <div class="col">
+           <mat-form-field>
+             <input type="text" required #descript matInput placeholder="Breve descripción de la actividad" />
+           </mat-form-field>
+         </div>
+         <div class="col">
+           <mat-form-field>
+             <input type="text" required #instruct matInput placeholder="Instrucciones que se le mostrarán al alumno" />
+           </mat-form-field>
+         </div>
+         <div class="col text-lg-right">
+           <button mat-button  color="accent">Crear nueva actividad</button>
+         </div>
+       </div>
+     </form>
+     <div class="row">
+       <div class="col">
+         <h3>Buscar: </h3>
+       </div>
+       <div class="col">
+         <mat-form-field >
+           <input matInput placeholder="Algo" type="text" #searchVal (keyup)="search(searchVal.value)" />
+         </mat-form-field>
+       </div>
+       <div class="col text-right">
+         <h3> por: </h3>
+       </div>
+       <div class="col">
+         <mat-form-field>
+           <mat-select value="0"  #searchType (change)="sType = searchType.value">
+             <mat-option value="0">Nombre de usuario</mat-option>
+             <mat-option value="1">Nickname</mat-option>
+           </mat-select>
+         </mat-form-field>
+       </div>
+     </div>
+   </div>
+ </div>
+  <table class="table">
+    <thead class="thead-dark text-center">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Título</th>
+      <th scope="col">Descripción</th>
+      <th scope="col" colspan="3">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+
+    </tr>
+    </tbody>
+  </table>
 </app-access-denied-page>

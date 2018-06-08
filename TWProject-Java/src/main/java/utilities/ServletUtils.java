@@ -5,12 +5,17 @@
  */
 package utilities;
 
+import beans.Quizzes;
 import beans.Users;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import static values.Strings.getQuizzesXMLFile;
+import static values.Strings.quizzesXMLFolder;
 import static values.Strings.usersXMLFile;
 
 /**
@@ -33,4 +38,32 @@ public class ServletUtils {
         XmlMapper XMLmapper = new XmlMapper();
         return XMLmapper.readValue(MyReader.readFile(context.getRealPath(usersXMLFile)), Users.class);
     }
+   
+    public static Quizzes getQuizzesFromXml(ServletContext context, String usr ) throws IOException
+    {
+        XmlMapper XMLmapper = new XmlMapper();
+        return XMLmapper.readValue(MyReader.readFile(context.getRealPath(quizzesXMLFolder +"/" + usr + "/quizzesIndex.xml" )), Quizzes.class);
+    }
+   
+    public static boolean createQuizzesIndex(ServletContext context, String usr) throws IOException
+    {
+        boolean existia = false;
+        XmlMapper xml = new XmlMapper();
+         xml.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
+        System.out.println(context.getRealPath(getQuizzesXMLFile(usr)));
+        System.out.println(context.getRealPath(quizzesXMLFolder + "/" + usr));
+        File dir = new File(context.getRealPath(quizzesXMLFolder + "/" + usr));
+        if(!dir.exists())
+            dir.mkdirs();
+        File f = new File(context.getRealPath(getQuizzesXMLFile(usr)));
+            if(!f.exists())
+            {
+                f.createNewFile();
+                xml.writeValue(f, new Quizzes());
+            }
+            else
+                existia = true;
+            return existia;
+    }
+    
 }

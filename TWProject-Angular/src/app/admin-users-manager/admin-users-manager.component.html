@@ -1,61 +1,73 @@
 <app-redirect-if-not-logged></app-redirect-if-not-logged>
 <app-menu></app-menu>
 <app-access-denied-page [authLevelRequired]="0">
-    <div class="container">
-      <div class="container">
+    <div>
+      <div>
         <div [hidden]="myAlert.hidden">
           <ngb-alert type="{{myAlert.type}}" [dismissible]="true" (close)="myAlert.hidden = true" >
             <strong>{{myAlert.title}} </strong> {{myAlert.body}}
           </ngb-alert>
         </div>
         <br>
-        <div class="table my-table">
+        <div class="padding-left-rigth" >
           <div class="row">
             <div class="col">
               <h2 >Usuarios registrados</h2>
             </div>
             <div class="col text-lg-right">
-              <button data-toggle="collapse" data-target="#nuevo" class="btn btn-outline-dark">Agregar usuario ...</button>
+              <button mat-button data-toggle="collapse" data-target="#nuevo" color="primary">Agregar usuario ...</button>
             </div>
           </div>
-          <div id="nuevo" class="collapse">
+          <form (submit)="newUser(nUsername, nNickname, nPassword, nAuthLevel)" id="nuevo" class="collapse">
             <div class="row">
               <div class="col">
-                <input type="text" #nUsername class="form-control" placeholder="Nombre de usuario" />
+                <mat-form-field>
+                 <input type="text" required matInput #nUsername placeholder="Nombre de usuario" />
+                </mat-form-field>
               </div>
               <div class="col">
-                <input type="text" #nNickname class="form-control" placeholder="Nombre a mostrar (nickname)" />
+                <mat-form-field>
+                  <input matInput required type="text" #nNickname placeholder="Nombre a mostrar (nickname)" />
+                </mat-form-field>
               </div>
               <div class="col">
-                <input type="password" #nPassword class="form-control" placeholder="Contraseña" />
+                <mat-form-field>
+                <input matInput required type="password" #nPassword class="form-control" placeholder="Contraseña" />
+                </mat-form-field>
               </div>
               <div class="col">
-                <select  #nAuthLevel class="form-control">
-                  <option value="0">Administrador</option>
-                  <option value="1">Profesor</option>
-                  <option value="2">Alumno</option>
-                </select>
+                <mat-form-field>
+                <mat-select required #nAuthLevel placeholder="Seleccione un rol para el usuario">
+                  <mat-option value="0">Administrador</mat-option>
+                  <mat-option value="1">Profesor</mat-option>
+                  <mat-option value="2">Alumno</mat-option>
+                </mat-select>
+                </mat-form-field>
               </div>
               <div class="col text-lg-right">
-                <button (click)="newUser(nUsername, nNickname, nPassword, nAuthLevel)" class="btn btn-outline-success">Crear nuevo usuario</button>
+                <button mat-button color="accent">Crear nuevo usuario</button>
               </div>
             </div>
-          </div>
+          </form>
           <div class="row">
             <div class="col">
               <h3>Buscar: </h3>
             </div>
             <div class="col">
-              <input placeholder="Algo" type="text" #searchVal class="form-control" (keyup)="search(searchVal.value)" />
+              <mat-form-field>
+              <input matInput placeholder="Algo" type="text" #searchVal (keyup)="search(searchVal.value)" />
+              </mat-form-field>
             </div>
-            <div class="col">
+            <div class="col text-right">
               <h3> por: </h3>
             </div>
             <div class="col">
-              <select  #searchType (change)="sType = searchType.value" class="form-control">
-                <option value="0">Nombre de usuario</option>
-                <option value="1">Nickname</option>
-              </select>
+              <mat-form-field>
+              <mat-select  #searchType (change)="sType = searchType.value" value="0">
+                <mat-option value="0">Nombre de usuario</mat-option>
+                <mat-option value="1">Nickname</mat-option>
+              </mat-select>
+              </mat-form-field>
             </div>
           </div>
         </div>

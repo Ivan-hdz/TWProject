@@ -10,6 +10,7 @@ import beans.User;
 import beans.Users;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,6 +41,7 @@ public class users extends HttpServlet{
             out.print(MyReader.readFile(context.getRealPath(usersXMLFile)));
         } else {
             XmlMapper XMLmapper = new XmlMapper();
+             XMLmapper.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
             String id = uri[uri.length-1];
             Users us = getUsersFromXml(context);
             for(User u : us.getUser())
@@ -60,6 +62,7 @@ public class users extends HttpServlet{
         PrintWriter out = initResponse("xml", res);
         ObjectMapper jsonMapper = new ObjectMapper();
         XmlMapper xmlMapper = new XmlMapper();
+        xmlMapper.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
         RestStatus st = new RestStatus();
         User u = jsonMapper.readValue(req.getParameter("user"), User.class);
         Users us = getUsersFromXml(context);
@@ -93,6 +96,7 @@ public class users extends HttpServlet{
         PrintWriter out = initResponse("xml", res);
         ObjectMapper jsonMapper = new ObjectMapper();
         XmlMapper xmlMapper = new XmlMapper();
+        xmlMapper.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
         RestStatus st = new RestStatus();
         User u = jsonMapper.readValue(req.getParameter("user"), User.class);
         Users us = getUsersFromXml(context);
@@ -130,6 +134,7 @@ public class users extends HttpServlet{
         String uri[] = sb.split("/"); // "/TWJavaProject/rest/users "
         ObjectMapper jsonMapper = new ObjectMapper();
         XmlMapper xmlMapper = new XmlMapper();
+        xmlMapper.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
         RestStatus st = new RestStatus();
         String usrname = uri[uri.length-1];
         User u = new User();

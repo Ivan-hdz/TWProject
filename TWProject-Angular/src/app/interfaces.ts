@@ -26,6 +26,7 @@ export interface QuizInterface
   id: number;
   title: string;
   description: string;
+  instructions: string;
   urlBody: string;
 }
 

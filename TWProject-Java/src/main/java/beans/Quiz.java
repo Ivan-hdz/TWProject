@@ -17,6 +17,7 @@ public class Quiz {
     private String title;
     private String description;
     private String urlBody;
+    private String instructions;
 
     /**
      * @return the id
@@ -72,5 +73,19 @@ public class Quiz {
      */
     public void setUrlBody(String urlBody) {
         this.urlBody = urlBody;
+    }
+
+    /**
+     * @return the instructions
+     */
+    public String getInstructions() {
+        return instructions;
+    }
+
+    /**
+     * @param instructions the instructions to set
+     */
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 }

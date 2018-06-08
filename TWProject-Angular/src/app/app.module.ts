@@ -15,6 +15,7 @@ import { AdminUsersManagerComponent } from './admin-users-manager/admin-users-ma
 import {SharedModule} from './modules/shared/shared.module';
 import {TeacherQuizzesManagerComponent} from './teacher-quizzes-manager/teacher-quizzes-manager.component';
 import {TeacherModule} from './modules/teacher/teacher.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: 'index', component: AuthComponent},
@@ -41,7 +42,8 @@ const routes: Routes = [
     NgbModule,
     AdminModule,
     TeacherModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

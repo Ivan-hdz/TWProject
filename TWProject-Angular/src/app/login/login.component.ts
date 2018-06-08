@@ -25,11 +25,12 @@ export class LoginComponent implements OnInit {
   }
 
   login(user: String, pass: String) {
+    let flag = false;
     this.myAlert.clearAlert();
     this.cUser.clearUser();
     this.cUser.setUsername(user);
     this.cUser.setPassword(pass);
-    if (this.cUser.login() === true) {
+    if (this.cUser.login()) {
       this.myAlert.hidden = true;
       this.router.navigate(['/home']);
       return true;
@@ -41,5 +42,4 @@ export class LoginComponent implements OnInit {
       return false;
     }
   }
-
 }
