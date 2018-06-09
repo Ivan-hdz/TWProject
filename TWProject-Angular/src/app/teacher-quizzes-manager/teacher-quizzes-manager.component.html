@@ -11,27 +11,27 @@
    <div class="padding-left-rigth" >
      <div class="row">
        <div class="col">
-         <h2 >Usuarios registrados</h2>
+         <h2 >Actividades registradas</h2>
        </div>
        <div class="col text-lg-right">
          <button mat-button color="primary" data-toggle="collapse" data-target="#nuevo">Agregar usuario ...</button>
        </div>
      </div>
-     <form (submit)="newActivity(title.value, descript.value, instruct.value)" id="nuevo" class="collapse ">
+     <form (submit)="newActivity(title, descript, instruct)" id="nuevo" class="collapse ">
        <div class="row">
          <div class="col">
            <mat-form-field>
-            <input required type="text" #title matInput placeholder="Título de la actividad" />
+            <input #title required type="text" #title matInput placeholder="Título de la actividad" />
            </mat-form-field>
          </div>
          <div class="col">
            <mat-form-field>
-             <input type="text" required #descript matInput placeholder="Breve descripción de la actividad" />
+             <textarea #descript type="text" required #descript matInput placeholder="Breve descripción de la actividad" ></textarea>
            </mat-form-field>
          </div>
          <div class="col">
            <mat-form-field>
-             <input type="text" required #instruct matInput placeholder="Instrucciones que se le mostrarán al alumno" />
+             <textarea #instruct type="text" required #instruct matInput placeholder="Instrucciones que se le mostrarán al alumno" ></textarea>
            </mat-form-field>
          </div>
          <div class="col text-lg-right">
@@ -54,8 +54,8 @@
        <div class="col">
          <mat-form-field>
            <mat-select value="0"  #searchType (change)="sType = searchType.value">
-             <mat-option value="0">Nombre de usuario</mat-option>
-             <mat-option value="1">Nickname</mat-option>
+             <mat-option value="0">ID</mat-option>
+             <mat-option value="1">Título</mat-option>
            </mat-select>
          </mat-form-field>
        </div>
@@ -68,12 +68,19 @@
       <th scope="col">ID</th>
       <th scope="col">Título</th>
       <th scope="col">Descripción</th>
+      <th scope="col">Instrucciones generales para alumno</th>
       <th scope="col" colspan="3">Acciones</th>
     </tr>
     </thead>
     <tbody>
-    <tr >
-
+    <tr *ngFor="let q of (registdActvts$ | async)">
+      <th scope="row">{{q.id}}</th>
+      <td><input [id]="q.id+'_title'" type="text" class="form-control" value="{{q.title}}" disabled /></td>
+      <td><input [id]="q.id+'_desc'" type="text" class="form-control" value="{{q.description}}" disabled /></td>
+      <td><input [id]="q.id+'_inst'" type="text" class="form-control" value="{{q.instructions}}" disabled /></td>
+      <td><input [id]="q.id + '_editBtn'"  class="btn-link btn" value="Editar datos" (click)="edit(q)"/></td>
+      <td><input [id]="q.id + '_editBtn'"  class="btn-link btn" value="Editar diagrama" (click)="edit(q)"/></td>
+      <td><button class="btn-link btn"  (click)="deleteUsr(q.id)">Eliminar actividad</button></td>
     </tr>
     </tbody>
   </table>

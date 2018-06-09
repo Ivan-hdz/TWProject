@@ -5,6 +5,7 @@
  */
 package utilities;
 
+import beans.Quiz;
 import beans.Quizzes;
 import beans.Users;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -29,7 +30,6 @@ public class ServletUtils {
         res.setContentType("text/" + contentType + ";charset=UTF-8");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Method", "GET, PUT, POST, DELETE, HEAD");
-        
         return res.getWriter();
     }
     
@@ -50,8 +50,6 @@ public class ServletUtils {
         boolean existia = false;
         XmlMapper xml = new XmlMapper();
          xml.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
-        System.out.println(context.getRealPath(getQuizzesXMLFile(usr)));
-        System.out.println(context.getRealPath(quizzesXMLFolder + "/" + usr));
         File dir = new File(context.getRealPath(quizzesXMLFolder + "/" + usr));
         if(!dir.exists())
             dir.mkdirs();
@@ -59,11 +57,20 @@ public class ServletUtils {
             if(!f.exists())
             {
                 f.createNewFile();
-                xml.writeValue(f, new Quizzes());
             }
             else
                 existia = true;
             return existia;
+    }
+    
+    public static int getUniqueId(ServletContext context, String us) throws IOException
+    {
+        Quizzes qzs = getQuizzesFromXml(context, us);
+        int rand = (int) (Math.random()*100);
+        if(qzs.getQuiz() != null)
+            for(Quiz q : qzs.getQuiz())
+                rand += q.getId();
+        return rand;
     }
     
 }

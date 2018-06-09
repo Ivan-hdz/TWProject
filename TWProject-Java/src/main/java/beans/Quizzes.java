@@ -7,6 +7,7 @@ package beans;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import java.util.LinkedList;
 import java.util.List;
 
 /**

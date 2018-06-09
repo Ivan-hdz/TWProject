@@ -21,14 +21,12 @@ export class AdminUsersManagerComponent implements OnInit {
   public myAlert: MyBootstrapAlert;
   public cacheUsers: UsersInterface;
   public sType: Number;
-  public authLevel: Number;
 
   constructor(am: UserAccountService, currentUser: CurrentUserService) {
     this.myAlert = new MyBootstrapAlert();
     this.accMge = am;
     this.myAlert.hidden = true;
     this.sType = 0;
-    this.authLevel = currentUser.getAuthLevel();
   }
 
   ngOnInit() {
@@ -97,6 +95,7 @@ export class AdminUsersManagerComponent implements OnInit {
       }
       this.refreshUsers();
     });
+    return false;
   }
   public search(txt: String) {
     const arr: UserInterface[] = new Array<UserInterface>();

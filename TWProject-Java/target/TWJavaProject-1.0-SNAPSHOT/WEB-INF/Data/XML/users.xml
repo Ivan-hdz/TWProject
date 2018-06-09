@@ -1,1 +1,11 @@
-<users><user><username>Administrador</username><nickname>Administrador</nickname><authLevel>0</authLevel><password>admin</password><sessionToken>Administrador1528428968625</sessionToken></user><user><username>Octavio</username><nickname>Ivan</nickname><authLevel>1</authLevel><password>nemesis007</password><sessionToken>Octavio1528428984017</sessionToken></user></users>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE User SYSTEM "users.dtd">
+<users>
+    <user>
+        <username>Administrador</username>
+        <nickname>Administrador</nickname>
+        <password>admin</password>
+        <authLevel>0</authLevel>
+        <sessionToken></sessionToken>
+  </user>
+</users>
