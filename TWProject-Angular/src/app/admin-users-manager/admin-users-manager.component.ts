@@ -5,6 +5,7 @@ import {UserInterface, UsersInterface} from '../interfaces';
 import {MyBootstrapAlert, User} from '../clases';
 import {isSubstring} from '../shared/values/strings';
 import {CurrentUserService} from '../services/current-user.service';
+import {map} from 'rxjs/internal/operators';
 
 declare let $: any;
 declare let JQuery: any;
@@ -21,26 +22,27 @@ export class AdminUsersManagerComponent implements OnInit {
   public myAlert: MyBootstrapAlert;
   public cacheUsers: UsersInterface;
   public sType: Number;
+  private cUser: CurrentUserService;
+  loading: boolean;
 
   constructor(am: UserAccountService, currentUser: CurrentUserService) {
     this.myAlert = new MyBootstrapAlert();
     this.accMge = am;
     this.myAlert.hidden = true;
     this.sType = 0;
+    this.cUser = currentUser;
+    this.loading = true;
   }
 
   ngOnInit() {
     this.refreshUsers();
   }
   public refreshUsers() {
+    this.loading = true;
     this.accMge.getUsers().subscribe(users => {
-
-      for (let i = 0; i < users.user.length; i++) {
-        users.user[i].refNum = i + 1;
-        users.user[i].actualBtnLabel = 'Modificar usuario';
-      }
       this.cacheUsers = users;
       this.registrdUsers$ = of(users.user);
+      this.loading = false;
     });
   }
   public deleteUsr(usr: UserInterface) {
@@ -53,18 +55,16 @@ export class AdminUsersManagerComponent implements OnInit {
 
   public edit(usr: UserInterface) {
     const buf: UserInterface = <UserInterface>{};
-    if (usr.actualBtnLabel === 'Guardar') { // Si al presionar el boton tiene el texto guardar en vez de modificar usuario
-      const arrHtmlEl = $('[name=' + usr.username + ']');
-      if ( arrHtmlEl.length > 1 ) {
-        buf.authLevel = usr.authLevel[0];
-        buf.username = usr.username[0];
-        buf.nickname = arrHtmlEl[0].value;
-        buf.password = arrHtmlEl[1].value; // Se obtienen los datos introducidos por el usuari
-      } else {
-        buf.username = usr.username[0];
-        buf.authLevel = 0;
-        buf.nickname = 'Administrador';
-        buf.password = arrHtmlEl[0].value; // Se obtienen los datos introducidos por el usuario
+    const btn: any = $('#' + usr.username + '_btnEdit');
+    if ( btn.val() === 'Guardar') { // Si al presionar el boton tiene el texto guardar
+        buf.authLevel = $('#' + usr.username + '_auth').val();
+        buf.username = $('#' + usr.username + '_usr').val();
+        buf.nickname = $('#' + usr.username + '_nick').val();
+        buf.password = $('#' + usr.username + '_pass').val(); // Se obtienen los datos introducidos por el usuario
+
+      if (usr.username.toString() == this.cUser.getUsername().toString()) {
+        console.log("Sending to observ");
+        this.cUser.updateCurrentNickname(buf.nickname);
       }
       this.accMge.putUser(buf).subscribe(restStatus => { // Mediante un Servicio se hace llamada rest
         this.myAlert.fromRESTStatus(restStatus);
@@ -72,10 +72,13 @@ export class AdminUsersManagerComponent implements OnInit {
         this.refreshUsers();
       });
     }
-    $('[name=' + usr.username + ']').each((i, elem) => {
-      elem.disabled = !elem.disabled;
-      elem.disabled ? usr.actualBtnLabel = 'Modificar usuario' : usr.actualBtnLabel = 'Guardar';
-    });
+    if(usr.authLevel[0] != '0') {
+      $('#' + usr.username + '_auth').prop('disabled', !$('#' + usr.username + '_auth').prop('disabled') );
+    }
+    $('#' + usr.username + '_nick').prop('disabled', !$('#' + usr.username + '_nick').prop('disabled') );
+    $('#' + usr.username + '_pass').prop('disabled', !$('#' + usr.username + '_pass').prop('disabled') );
+    $('#' + usr.username + '_pass').prop('disabled') ? btn.val('Editar usuario')  : btn.val('Guardar');
+    return false;
   }
 
   public  newUser(nUsrName: HTMLInputElement, nNick: HTMLInputElement, nPass: HTMLInputElement, nAuth: HTMLSelectElement) {

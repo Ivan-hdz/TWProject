@@ -37,6 +37,7 @@ public class auth extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        
         ServletContext context = req.getServletContext();
         res.setContentType("text/html;charset=UTF-8");
         PrintWriter out = res.getWriter();
@@ -55,9 +56,10 @@ public class auth extends HttpServlet {
                 Users us = ServletUtils.getUsersFromXml(context);
                 for(User u : us.getUser())
                 {
-                    if(u != null)
+                    if(u.getSessionToken() != null && tokenClient != null){
                         if(u.getSessionToken().equals(tokenClient))
                             tokenMatch = true;
+                    }
                 }
             }
             if(!tokenMatch){
@@ -66,7 +68,11 @@ public class auth extends HttpServlet {
                 st.setTitle("Error: ");
             }
             out.print(map.writeValueAsString(st));
-        } finally {
+           
+        } catch(IOException e)
+                {
+                    System.out.println(e.getMessage());
+         } finally {
             out.close();
         }
     }

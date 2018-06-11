@@ -14,6 +14,7 @@ import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import utilities.MyReader;
 import static utilities.ServletUtils.getUsersFromXml;
 import static utilities.ServletUtils.initResponse;
+import static utilities.ServletUtils.toUTF8;
 import static values.Strings.usersXMLFile;
 /**
  *
@@ -64,7 +66,7 @@ public class users extends HttpServlet{
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
         RestStatus st = new RestStatus();
-        User u = jsonMapper.readValue(req.getParameter("user"), User.class);
+        User u = jsonMapper.readValue(toUTF8(req.getParameter("user")), User.class);
         Users us = getUsersFromXml(context);
         boolean exists = false;
         for(User u_ : us.getUser())
@@ -92,13 +94,16 @@ public class users extends HttpServlet{
     @Override
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException
     {
+        System.out.println(req.getContentType());
         ServletContext context = getServletContext();
         PrintWriter out = initResponse("xml", res);
         ObjectMapper jsonMapper = new ObjectMapper();
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
         RestStatus st = new RestStatus();
-        User u = jsonMapper.readValue(req.getParameter("user"), User.class);
+        
+        User u = jsonMapper.readValue(toUTF8(req.getParameter("user")), User.class);
+        
         Users us = getUsersFromXml(context);
         boolean exists = false;
         int i = 0;

@@ -1,0 +1,12 @@
+<div *ngIf="loading == true; then loadingTag else loadedTag"></div>
+<ng-template #loadedTag>
+  <ng-content></ng-content>
+</ng-template>
+<ng-template #loadingTag>
+  <div class="container">
+    <div class="container vertical-center">
+      <mat-spinner [diameter]="125"></mat-spinner> <h1>{{loadingText + dots}}</h1>
+    </div>
+  </div>
+</ng-template>
+

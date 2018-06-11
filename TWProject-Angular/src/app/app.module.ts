@@ -16,12 +16,15 @@ import {SharedModule} from './modules/shared/shared.module';
 import {TeacherQuizzesManagerComponent} from './teacher-quizzes-manager/teacher-quizzes-manager.component';
 import {TeacherModule} from './modules/teacher/teacher.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TeacherDiagramEditorComponent } from './teacher-diagram-editor/teacher-diagram-editor.component';
+
 
 const routes: Routes = [
   { path: 'index', component: AuthComponent},
   { path: 'home', component: HomeComponent },
   { path: 'admin/users', component: AdminUsersManagerComponent},
   { path: 'teacher/quizzes', component: TeacherQuizzesManagerComponent },
+  { path: 'teacher/quizzes/edit/:id', component: TeacherDiagramEditorComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

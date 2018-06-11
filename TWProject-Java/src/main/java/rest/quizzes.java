@@ -93,7 +93,7 @@ public class quizzes extends HttpServlet {
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true ); //Sirve para incluir el xml header
         RestStatus st = new RestStatus();
-        Quiz q = jsonMapper.readValue(req.getParameter("quiz"), Quiz.class);
+        Quiz q = jsonMapper.readValue(toUTF8(req.getParameter("quiz")), Quiz.class);
         int uniqueID = getUniqueId(context,uri[uri.length-1]); //Generando un id unico para la actividad
         q.setUrlBody(String.valueOf(uniqueID)+ ".svg");
         q.setId(uniqueID);
@@ -140,12 +140,13 @@ public class quizzes extends HttpServlet {
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.configure( ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true );
         RestStatus st = new RestStatus();
-        Quiz q = jsonMapper.readValue(req.getParameter("quiz"), Quiz.class);
+        Quiz q = jsonMapper.readValue(toUTF8(req.getParameter("quiz")), Quiz.class);
         Quizzes qzs = getQuizzesFromXml(context, uri[uri.length-1]);
         boolean exists = false;
         int i = 0;
         for(Quiz q_ : qzs.getQuiz())
         {
+            System.out.println(q.getId() + " ==  " + q_.getId());
             if(q_.getId() == q.getId())
             {
                 exists = true;
@@ -165,8 +166,8 @@ public class quizzes extends HttpServlet {
             st.setStatus(200);
             st.setTitle("Éxito: ");
             st.setBody("Actividad actualizado satisfactoriamente");
-            out.println(xmlMapper.writeValueAsString(st));
         }
+            out.println(xmlMapper.writeValueAsString(st));
     }
     /**
      * Método DELETE, elimina un recurso en especifico del profesor proporcionado en la url

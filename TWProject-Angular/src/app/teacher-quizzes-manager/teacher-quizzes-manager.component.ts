@@ -6,6 +6,7 @@ import {QuizInterface, QuizzesInterface, UserInterface} from '../interfaces';
 import {isSubstring} from '../shared/values/strings';
 import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/output_ast';
 import {createSrcToOutPathMapper} from '@angular/compiler-cli/src/transformers/program';
+import {Router} from '@angular/router';
 declare const $: any;
 @Component({
   selector: 'app-teacher-quizzes-manager',
@@ -18,22 +19,28 @@ export class TeacherQuizzesManagerComponent implements OnInit {
   sType: Number;
   cacheQuizzes: QuizzesInterface;
   registdActvts$: Observable<QuizInterface[]>;
-  constructor(quizMan: TeacherQuizService) {
+  loading: boolean;
+  private router: Router;
+  constructor(quizMan: TeacherQuizService, router: Router) {
     this.myAlert = new MyBootstrapAlert();
     this.quizMan = quizMan;
     this.sType = 0;
     this.myAlert.hidden = true;
+    this.loading = true;
+    this.router = router;
   }
 
   ngOnInit() {
     this.refreshUsers();
   }
   public refreshUsers() {
+    this.loading = true;
     this.quizMan.getQuizzes().subscribe(qzs => {
       this.cacheQuizzes = qzs;
       if (qzs != null) {
         this.registdActvts$ = of(qzs.quiz);
       }
+      this.loading = false;
     });
   }
   public deleteUsr(idQuiz: number) {
@@ -45,21 +52,23 @@ export class TeacherQuizzesManagerComponent implements OnInit {
   }
   public edit(q: QuizInterface) {
     const buf: QuizInterface = <QuizInterface>{};
-    const btn: HTMLButtonElement = $('#' + q.id + '_editBtn');
-    if (btn.value === 'Guardar') { // Si al presionar el boton tiene el texto guardar en vez de modificar usuario
+    const btn: any = $('#' + q.id + '_editBtn');
+    if (btn.val() == 'Guardar') { // Si al presionar el boton tiene el texto guardar en vez de modificar usuario
       buf.title = $('#' + q.id + '_title').val();
       buf.description = $('#' + q.id + '_desc').val();
       buf.instructions = $('#' + q.id + '_inst').val();
+      buf.id = $('#' + q.id + '_id').html();
       this.quizMan.putQuiz(buf).subscribe(restStatus => { // Mediante un Servicio se hace llamada rest
+        console.log(restStatus);
         this.myAlert.fromRESTStatus(restStatus);
         this.myAlert.hidden = false;
         this.refreshUsers();
       });
     }
-    $('#' + q.id + '_title').disabled = !$('#' + q.id + 'title').disabled;
-    $('#' + q.id + 'desc').disabled = !$('#' + q.id + 'desc').disabled;
-    $('#' + q.id + '_inst').disabled = !$('#' + q.id + '_inst').disabled;
-    $('#' + q.id + '_inst').disabled ? btn.value = 'Modificar usuario' : btn.value = 'Guardar';
+    $('#' + q.id + '_title').prop('disabled', !$('#' + q.id + '_title').prop('disabled') );
+    $('#' + q.id + '_desc').prop('disabled', !$('#' + q.id + '_desc').prop('disabled') );
+    $('#' + q.id + '_inst').prop('disabled', !$('#' + q.id + '_inst').prop('disabled') );
+    $('#' + q.id + '_inst').prop('disabled') ? btn.val('Editar datos de actividad')  : btn.val('Guardar');
   }
   public search(txt: String) {
     const arr: QuizInterface[] = new Array<QuizInterface>();
@@ -92,5 +101,8 @@ export class TeacherQuizzesManagerComponent implements OnInit {
       this.refreshUsers();
     });
     return false;
+  }
+  go(uri: string) {
+    this.router.navigate([uri]);
   }
 }

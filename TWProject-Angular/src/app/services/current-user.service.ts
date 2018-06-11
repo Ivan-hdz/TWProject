@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {RESTStatus, UserInterface} from '../interfaces';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {restEndpoint, usertAcc_test} from '../shared/values/strings';
 import {ParseFormatService} from './parse-format.service';
 import {map} from 'rxjs/internal/operators';
+import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class CurrentUserService {
@@ -12,6 +13,8 @@ export class CurrentUserService {
   private _user: UserInterface;
   private http: HttpClient;
   private parser: ParseFormatService;
+  cUserNickname$: Observable<String>;
+  private cUserNicknameSubject: Subject<String> = new Subject();
 
   constructor( ht: HttpClient, parser: ParseFormatService) {
     this.loggedIn = false;
@@ -27,6 +30,7 @@ export class CurrentUserService {
     } else {
       this.loggedIn = false;
     }
+    this.cUserNickname$ = this.cUserNicknameSubject.asObservable();
   }
 
   public getCurrentUser(): UserInterface {
@@ -71,6 +75,15 @@ export class CurrentUserService {
       }
       }).unsubscribe();
     return this.loggedIn.valueOf();
+  }
+
+  public getCurrentUserObservable(): Observable<String> {
+    return this.cUserNickname$;
+  }
+  public updateCurrentNickname(nickname: String): void {
+    this.cUserNicknameSubject.next(nickname);
+    this._user.nickname = nickname;
+    localStorage.user = JSON.stringify(this._user);
   }
 
   public login(): Boolean {

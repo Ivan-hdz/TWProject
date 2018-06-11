@@ -1,6 +1,6 @@
-<app-redirect-if-not-logged></app-redirect-if-not-logged>
-<app-menu></app-menu>
+
 <app-access-denied-page [authLevelRequired]="0">
+  <app-loading [loading]="loading">
     <div>
       <div>
         <div [hidden]="myAlert.hidden">
@@ -22,23 +22,22 @@
             <div class="row">
               <div class="col">
                 <mat-form-field>
-                 <input type="text" required matInput #nUsername placeholder="Nombre de usuario" />
+                 <input autocomplete type="text" required matInput #nUsername placeholder="Nombre de usuario" />
                 </mat-form-field>
               </div>
               <div class="col">
                 <mat-form-field>
-                  <input matInput required type="text" #nNickname placeholder="Nombre a mostrar (nickname)" />
+                  <input autocomplete matInput required type="text" #nNickname placeholder="Nombre a mostrar (nickname)" />
                 </mat-form-field>
               </div>
               <div class="col">
                 <mat-form-field>
-                <input matInput required type="password" #nPassword class="form-control" placeholder="Contraseña" />
+                <input autocomplete matInput required type="password" #nPassword placeholder="Contraseña" />
                 </mat-form-field>
               </div>
               <div class="col">
                 <mat-form-field>
                 <mat-select required #nAuthLevel placeholder="Seleccione un rol para el usuario">
-                  <mat-option value="0">Administrador</mat-option>
                   <mat-option value="1">Profesor</mat-option>
                   <mat-option value="2">Alumno</mat-option>
                 </mat-select>
@@ -74,7 +73,6 @@
         <table class="table">
           <thead class="thead-dark text-center">
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Nombre de usuario</th>
             <th scope="col">Nombre a mostrar</th>
             <th scope="col">Contraseña</th>
@@ -84,23 +82,37 @@
           </thead>
           <tbody>
           <tr *ngFor="let usr of (registrdUsers$ | async)">
-            <th scope="row">{{usr.refNum}}</th>
-            <td><input type="text" class="form-control" value="{{usr.username}}" disabled /></td>
-            <td><input [name]="usr.username == 'Administrador' ? '' : usr.username" type="text" class="form-control" value="{{usr.nickname}}" disabled /></td>
-            <td><input [name]="usr.username" type="password" class="form-control" value="{{usr.password}}" disabled /></td>
             <td>
-              <select [name]="usr.username == 'Administrador' ? '' : usr.username" #auL (change)="usr.authLevel = auL.value" class="form-control" disabled>
-                <option [selected]="usr.authLevel == 0" value="0">Administrador</option>
-                <option [selected]="usr.authLevel == 1" value="1">Profesor</option>
-                <option [selected]="usr.authLevel == 2" value="2">Alumno</option>
-              </select>
+              <mat-form-field>
+                <input matInput type="text" [id]="usr.username + '_usr'" value="{{usr.username}}" disabled />
+              </mat-form-field>
             </td>
-            <td><button [id]="usr.username" class="btn-link btn"  (click)="edit(usr)">{{usr.actualBtnLabel}}</button></td>
-            <td><button class="btn-link btn" [disabled]="usr.username == 'Administrador'" (click)="deleteUsr(usr)">Eliminar usuario</button></td>
+            <td>
+              <mat-form-field>
+                <input matInput [id]="usr.username + '_nick'" type="text"  value="{{usr.nickname}}" disabled />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput [id]="usr.username + '_pass'" type="password" value="{{usr.password}}" disabled />
+              </mat-form-field>
+            </td>
+            <td>
+                <select value="{{usr.authLevel}}" class="form-control" [id]="usr.username + '_auth'" #auL disabled>
+                  <option disabled value="0">Administrador</option>
+                  <option value="1">Profesor</option>
+                  <option value="2">Alumno</option>
+                </select>
+            </td>
+            <td>
+              <input type="button" [id]="usr.username + '_btnEdit'" value="Editar usuario" class="btn-link btn"  (click)="edit(usr)"/></td>
+            <td>
+              <button class="btn-link btn" [disabled]="usr.authLevel == 0" (click)="deleteUsr(usr)">Eliminar usuario</button></td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
+  </app-loading>
 </app-access-denied-page>
 

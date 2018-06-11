@@ -31,7 +31,13 @@ export class TeacherQuizService {
   }
 
   private getQuizHttpRequest(quizId: number): Observable<String> {
-    return this.http.get<String>(restEndpoint + '/rest/quizzes/' + this.cUser.getUsername() + '/' + quizId);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/xml'
+      }),
+      responseType: 'text' as 'json',
+    };
+    return this.http.get<String>(restEndpoint + '/rest/quizzes/' + this.cUser.getUsername() + '/' + quizId, httpOptions);
   }
   // POST
   public postQuiz(q: QuizInterface): Observable<RESTStatus> {
@@ -59,7 +65,7 @@ export class TeacherQuizService {
         'Content-Type':  'text/xml'
       }),
       responseType: 'text' as 'json',
-      params: {'user': JSON.stringify(q)}
+      params: {'quiz': JSON.stringify(q)}
     };
     return this.http.put<String>(restEndpoint + '/rest/quizzes/' + this.cUser.getUsername(), null, httpOptions);
   }

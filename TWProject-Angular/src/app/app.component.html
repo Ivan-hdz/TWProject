@@ -1,3 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<div *ngIf="check(); then shwoMenuBar" ></div>
+<ng-template #shwoMenuBar>
+  <app-redirect-if-not-logged></app-redirect-if-not-logged>
+  <app-menu></app-menu>
+</ng-template>
 
 <router-outlet></router-outlet>

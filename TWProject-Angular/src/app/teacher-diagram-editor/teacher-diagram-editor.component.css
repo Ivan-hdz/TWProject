@@ -1,0 +1,24 @@
+
+#canvas {
+  border: 2px dashed #cccccc;
+}
+
+
+.target
+{
+  display: block;
+  float: left;
+  width: auto;
+  height: auto;
+}
+.source
+{
+
+  border: 1px solid black;
+}
+.block
+{
+  margin-top: 5px;
+  display: block;
+  float: left;
+}

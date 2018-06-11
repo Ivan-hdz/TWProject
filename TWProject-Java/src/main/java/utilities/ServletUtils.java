@@ -13,6 +13,7 @@ import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import static values.Strings.getQuizzesXMLFile;
@@ -30,6 +31,7 @@ public class ServletUtils {
         res.setContentType("text/" + contentType + ";charset=UTF-8");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Method", "GET, PUT, POST, DELETE, HEAD");
+        res.setCharacterEncoding("UTF-8");
         return res.getWriter();
     }
     
@@ -43,6 +45,15 @@ public class ServletUtils {
     {
         XmlMapper XMLmapper = new XmlMapper();
         return XMLmapper.readValue(MyReader.readFile(context.getRealPath(quizzesXMLFolder +"/" + usr + "/quizzesIndex.xml" )), Quizzes.class);
+    }
+    
+    public static String toUTF8(String iso_8859_1)
+    {
+        //Por lo general tomcat codifica los parametros en ISO_8859_1
+        //Decodificando los caracteres a bytes con el estandar ISO_8859_1
+        byte[] bytes = iso_8859_1.getBytes(StandardCharsets.ISO_8859_1);
+        //Codificando los bytes en un string con el estandar UTF_8
+        return new String(bytes, StandardCharsets.UTF_8);
     }
    
     public static boolean createQuizzesIndex(ServletContext context, String usr) throws IOException

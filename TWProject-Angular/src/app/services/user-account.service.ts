@@ -46,7 +46,7 @@ export class UserAccountService {
     // return of(restStatus_test);
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'text/xml'
+        'Content-Type':  'text/xml; charset=UTF-8'
       }),
       responseType: 'text' as 'json',
       params: {'user': JSON.stringify(this.cleanObject(newUser))}
@@ -62,11 +62,12 @@ export class UserAccountService {
     // return of(restStatus_test);
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'text/xml'
+        'Content-Type':  'text/xml; charset=UTF-8'
       }),
       responseType: 'text' as 'json',
-      params: {'user': JSON.stringify(this.cleanObject(user))}
+      params: {'user': JSON.stringify(user)}
     };
+    console.log(user.nickname);
     return this.http.put<String>(restEndpoint + '/rest/users', null, httpOptions);
   }
   // DELETE
@@ -78,7 +79,7 @@ export class UserAccountService {
     // return of(restStatus_test);
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'text/xml'
+        'Content-Type':  'text/xml; charset=UTF-8'
       }),
       responseType: 'text' as 'json'
     };

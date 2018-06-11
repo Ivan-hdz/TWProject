@@ -1,6 +1,6 @@
-<app-redirect-if-not-logged></app-redirect-if-not-logged>
-<app-menu></app-menu>
+
 <app-access-denied-page [authLevelRequired]="1">
+  <app-loading [loading]="loading">
  <div>
    <div [hidden]="myAlert.hidden">
      <ngb-alert type="{{myAlert.type}}" [dismissible]="true" (close)="myAlert.hidden = true" >
@@ -26,12 +26,12 @@
          </div>
          <div class="col">
            <mat-form-field>
-             <textarea #descript type="text" required #descript matInput placeholder="Breve descripción de la actividad" ></textarea>
+             <textarea rows="1" #descript type="text" required #descript matInput placeholder="Breve descripción de la actividad" ></textarea>
            </mat-form-field>
          </div>
          <div class="col">
            <mat-form-field>
-             <textarea #instruct type="text" required #instruct matInput placeholder="Instrucciones que se le mostrarán al alumno" ></textarea>
+             <textarea rows="1" #instruct type="text" required #instruct matInput placeholder="Instrucciones que se le mostrarán al alumno" ></textarea>
            </mat-form-field>
          </div>
          <div class="col text-lg-right">
@@ -74,14 +74,33 @@
     </thead>
     <tbody>
     <tr *ngFor="let q of (registdActvts$ | async)">
-      <th scope="row">{{q.id}}</th>
-      <td><input [id]="q.id+'_title'" type="text" class="form-control" value="{{q.title}}" disabled /></td>
-      <td><input [id]="q.id+'_desc'" type="text" class="form-control" value="{{q.description}}" disabled /></td>
-      <td><input [id]="q.id+'_inst'" type="text" class="form-control" value="{{q.instructions}}" disabled /></td>
-      <td><input [id]="q.id + '_editBtn'"  class="btn-link btn" value="Editar datos" (click)="edit(q)"/></td>
-      <td><input [id]="q.id + '_editBtn'"  class="btn-link btn" value="Editar diagrama" (click)="edit(q)"/></td>
-      <td><button class="btn-link btn"  (click)="deleteUsr(q.id)">Eliminar actividad</button></td>
+      <th scope="row"><span id="{{q.id + '_id'}}">{{q.id}}</span></th>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Título" [id]="q.id+'_title'" type="text"  value="{{q.title}}" disabled />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <textarea matInput placeholder="Descripción" [id]="q.id+'_desc'" type="text" rows="1" value="{{q.description}}" disabled ></textarea>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <textarea matInput placeholder="Instrucciones" [id]="q.id+'_inst'" type="text" rows="1" value="{{q.instructions}}" disabled ></textarea>
+        </mat-form-field>
+      </td>
+      <td>
+        <input [id]="q.id + '_editBtn'"  class="btn-link btn" value="Editar datos de actvidad" (click)="edit(q)"/>
+      </td>
+      <td>
+        <input [id]="q.id + '_editDiag'" (click)="go('teacher/quizzes/edit/' + q.id)" class="btn-link btn" value="Editar diagrama" />
+      </td>
+      <td>
+        <button class="btn-link btn"  (click)="deleteUsr(q.id)">Eliminar actividad</button>
+      </td>
     </tr>
     </tbody>
   </table>
+  </app-loading>
 </app-access-denied-page>

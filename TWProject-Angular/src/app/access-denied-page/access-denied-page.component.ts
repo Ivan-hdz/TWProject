@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CurrentUserService} from '../services/current-user.service';
 
-@Component({
+@ Component({
   selector: 'app-access-denied-page',
   templateUrl: './access-denied-page.component.html',
   styleUrls: ['./access-denied-page.component.css']
