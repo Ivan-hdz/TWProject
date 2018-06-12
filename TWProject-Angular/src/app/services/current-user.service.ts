@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import {RESTStatus, UserInterface} from '../interfaces';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of, Subject} from 'rxjs';
-import {restEndpoint, usertAcc_test} from '../shared/values/strings';
+import {restEndpoint} from '../shared/values/strings';
 import {ParseFormatService} from './parse-format.service';
 import {map} from 'rxjs/internal/operators';
-import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class CurrentUserService {
@@ -20,11 +19,13 @@ export class CurrentUserService {
     this.loggedIn = false;
     this.http = ht;
     this.parser = parser;
+    // buscamos la informacion del usuario en el localstorage del navegador
     if (localStorage.user) {
       this._user = JSON.parse(localStorage.user);
     } else {
       this._user = <UserInterface>{};
     }
+    // buscamos si ha iniciado sesion anteriormente el clientoe
     if (localStorage.logged) {
       this.loggedIn = JSON.parse(localStorage.logged);
     } else {
@@ -61,10 +62,10 @@ export class CurrentUserService {
     return this._user.authLevel;
   }
 
-  public isLoggedIn()
-  {
+  public isLoggedIn() {
     return this.loggedIn;
   }
+  // Autentificamos al usuario mandando al servidor un token creado al iniciar sesion
   public isAuth(): boolean {
 
     this.authHttpRequest(this._user.sessionToken).subscribe(result => {
@@ -80,17 +81,21 @@ export class CurrentUserService {
   public getCurrentUserObservable(): Observable<String> {
     return this.cUserNickname$;
   }
+  // actializamos los datos en el localstorage del navegador
   public updateCurrentNickname(nickname: String): void {
     this.cUserNicknameSubject.next(nickname);
     this._user.nickname = nickname;
     localStorage.user = JSON.stringify(this._user);
   }
-
+/* iniciamos sesion, mandando una peticion al servidor con
+  nombre de usuario y contraseña mediante peticion POST
+  */
   public login(): Boolean {
     // Aqui mando un request de login y me devuelve el authLevel
     this.loginHttpRequest(this.getUsername(), this._user.password).pipe(map(usrXML =>  this.parser.xmlToJson(usrXML))).subscribe(usr => {
-      if(usr.username != 'error')
-      {
+      if (usr.username != 'error') {
+        // Si el nombre de usuario es diferente a error,
+        // ha iniciado sesion correctamente
         // console.log(usr);
         this.loggedIn = true;
         this._user.authLevel = usr.authLevel;
@@ -104,18 +109,25 @@ export class CurrentUserService {
     });
     return this.isLoggedIn();
   }
-
+  /*
+  * Le avisamos al servidor que cerramos sesion mediante peticion get
+  * el servidor elimina el token guardado y cliente tambien
+  * */
   public logout() {
     this.http.get(restEndpoint + '/service/logout');
     this.clearUser();
   }
-
+  /*
+  * Limpia el localstorage del navegador
+  * */
   public clearUser() {
     this.loggedIn = false;
     localStorage.user = JSON.stringify(<UserInterface>{});
     localStorage.logged = 'false';
   }
-
+/*
+* Peticion post para iniciar sesion
+* */
   private loginHttpRequest(usr: String, pass: String): Observable<String> {
    // return of(usertAcc_test);
     const httpOptions = {

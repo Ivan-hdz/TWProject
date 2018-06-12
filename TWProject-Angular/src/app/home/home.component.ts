@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CurrentUserService} from '../services/current-user.service';
-
+/*
+* Pagina de inicio
+* */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

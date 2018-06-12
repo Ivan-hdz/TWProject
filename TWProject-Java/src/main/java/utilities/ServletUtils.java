@@ -10,8 +10,11 @@ import beans.Quizzes;
 import beans.Users;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import javax.servlet.ServletContext;
@@ -68,6 +71,9 @@ public class ServletUtils {
             if(!f.exists())
             {
                 f.createNewFile();
+                OutputStreamWriter w = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
+                w.write("<?xml version='1.0' encoding='UTF-8'?><quizzes/>");
+                w.close();
             }
             else
                 existia = true;

@@ -21,11 +21,16 @@ export class TeacherQuizService {
   public getQuizzes(): Observable<QuizzesInterface> {
     return this.getQuizzesHttpRequest().pipe(map(data => this.parser.xmlToJson(data)));
   }
-
+  /*
+  * Peticion get para obtener las actividades de un profesor en especifico
+  * en este caso el que tiene sesion iniciada
+  * */
   private getQuizzesHttpRequest(): Observable<String> {
     return this.http.get<String>(restEndpoint + '/rest/quizzes/' + this.cUser.getUsername(), {responseType: 'text' as 'json'});
   }
-
+  /*
+  * Obtenemos una actividad en especifico con el id de dicha activiad
+  * */
   public getQuiz(quizId: number): Observable<QuizInterface> {
     return this.getQuizHttpRequest(quizId).pipe(map(data => this.parser.xmlToJson(data)));
   }
@@ -43,7 +48,9 @@ export class TeacherQuizService {
   public postQuiz(q: QuizInterface): Observable<RESTStatus> {
     return this.postQuizHttpRequest(q).pipe(map(data => this.parser.xmlToJson(data)));
   }
-
+  /*
+  * Cramos una actividad nueva mandando los datos necesarios para su creacion en el servidor
+  * */
   private postQuizHttpRequest(q: QuizInterface): Observable<String> {
     const httpOptions = {
     headers: new HttpHeaders({
@@ -58,7 +65,9 @@ export class TeacherQuizService {
   public putQuiz(q: QuizInterface): Observable<RESTStatus> {
     return this.putQuizHttpMethod(q).pipe(map(data => this.parser.xmlToJson(data)));
   }
-
+  /*
+  * Modificamos una actividad existente
+  * */
   private putQuizHttpMethod(q: QuizInterface): Observable<String> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -73,7 +82,9 @@ export class TeacherQuizService {
   public deleteQuiz(quizId: number): Observable<RESTStatus> {
     return this.deleteQuizHttpMethod(quizId).pipe(map(data => this.parser.xmlToJson(data)));
   }
-
+  /*
+  * Eliminamos con una peticion DELETE al servidor
+  * */
   private deleteQuizHttpMethod(quizId: number): Observable<String> {
     const httpOptions = {
       headers: new HttpHeaders({

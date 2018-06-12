@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {of} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
 import {ParseFormatService} from './parse-format.service';
-import {restEndpoint, restStatus_test, userSacc_test, usertAcc_test} from '../shared/values/strings';
+import {restEndpoint} from '../shared/values/strings';
 
 @Injectable()
 export class UserAccountService {
@@ -23,12 +23,12 @@ export class UserAccountService {
   public getUsers(): Observable<UsersInterface> {
       return this.getUsersHttpRequest().pipe(map(data => this.parser.xmlToJson(data)));
   }
-
+// Obtenemos los usuarios registrados
   private getUsersHttpRequest(): Observable<String> {
     // return of(userSacc_test);
     return this.http.get<String>(restEndpoint + '/rest/users', {responseType: 'text' as 'json'});
   }
-
+  // Obtenemos un usuario en especifico
   public getUser(username: String): Observable<UserInterface> {
     return this.getUserHttpRequest(username).pipe(map(data => data = this.parser.xmlToJson(data)));
   }
@@ -41,7 +41,7 @@ export class UserAccountService {
   public postUser(user: UserInterface): Observable<RESTStatus> {
     return this.postUserHttpRequest(user).pipe(map(data => data = this.parser.xmlToJson(data)));
   }
-
+  // Creamos un usuario nuevo enviando los datos del nuevo usuario mediante POST
   private postUserHttpRequest(newUser: UserInterface): Observable<String> {
     // return of(restStatus_test);
     const httpOptions = {
@@ -57,7 +57,7 @@ export class UserAccountService {
   public putUser(user: UserInterface): Observable<RESTStatus> {
     return this.putUserHttpMethod(user).pipe(map(data => data = this.parser.xmlToJson(data)));
   }
-
+// Modificamos datos de un usuario existente
   private putUserHttpMethod(user: UserInterface): Observable<String> {
     // return of(restStatus_test);
     const httpOptions = {
@@ -74,7 +74,7 @@ export class UserAccountService {
   public deleteUser(user: UserInterface): Observable<RESTStatus> {
     return this.deleteUserHttpMethod(user).pipe(map(data => data = this.parser.xmlToJson(data)));
   }
-
+// Eliminamos un usuario existente
   private deleteUserHttpMethod(user: UserInterface): Observable<String> {
     // return of(restStatus_test);
     const httpOptions = {

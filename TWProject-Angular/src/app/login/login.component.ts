@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {CurrentUserService} from '../services/current-user.service';
 import {MyBootstrapAlert} from '../clases';
-
+/*
+* Componente que consume el metodo de iniciar sesion
+* del servicio current users
+* */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

@@ -1,6 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-
+/*
+* Componente que se muestra mientras cargan algunas paginas
+* */
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',

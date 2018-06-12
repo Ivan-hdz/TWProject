@@ -6,7 +6,11 @@ import {MyBootstrapAlert, User} from '../clases';
 import {isSubstring} from '../shared/values/strings';
 import {CurrentUserService} from '../services/current-user.service';
 import {map} from 'rxjs/internal/operators';
-
+/*
+* Componente que se encarga de ejecutar las
+* altas. bajas, cambios y consultas de los usuarios registrados
+* solo el admnistrador puede ver este componente
+* */
 declare let $: any;
 declare let JQuery: any;
 
@@ -63,7 +67,7 @@ export class AdminUsersManagerComponent implements OnInit {
         buf.password = $('#' + usr.username + '_pass').val(); // Se obtienen los datos introducidos por el usuario
 
       if (usr.username.toString() == this.cUser.getUsername().toString()) {
-        console.log("Sending to observ");
+        console.log('Sending to observ');
         this.cUser.updateCurrentNickname(buf.nickname);
       }
       this.accMge.putUser(buf).subscribe(restStatus => { // Mediante un Servicio se hace llamada rest
@@ -72,7 +76,7 @@ export class AdminUsersManagerComponent implements OnInit {
         this.refreshUsers();
       });
     }
-    if(usr.authLevel[0] != '0') {
+    if (usr.authLevel[0] != '0') {
       $('#' + usr.username + '_auth').prop('disabled', !$('#' + usr.username + '_auth').prop('disabled') );
     }
     $('#' + usr.username + '_nick').prop('disabled', !$('#' + usr.username + '_nick').prop('disabled') );

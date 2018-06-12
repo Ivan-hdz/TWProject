@@ -6,7 +6,9 @@ declare const $: any;
 import 'fabric';
 import {MyBootstrapAlert} from '../clases';
 declare const fabric: any;
-
+/*
+* Componente encargado de la logica del fabric y el editor de diagramas
+* */
 @Component({
   selector: 'app-teacher-diagram-editor',
   templateUrl: './teacher-diagram-editor.component.html',

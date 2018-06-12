@@ -1,6 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CurrentUserService} from '../services/current-user.service';
-
+/*
+* Componente que compara el nivel de autoridad
+* del usuario que tiene sesion activa con un nivel
+* preestablecido por el programador
+* */
 @ Component({
   selector: 'app-access-denied-page',
   templateUrl: './access-denied-page.component.html',

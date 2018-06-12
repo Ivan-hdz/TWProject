@@ -8,6 +8,12 @@ import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/
 import {createSrcToOutPathMapper} from '@angular/compiler-cli/src/transformers/program';
 import {Router} from '@angular/router';
 declare const $: any;
+/*
+* Componente encargado de manejar la logica
+* de altas, bajas , cambios y consultas de las actividades
+* del profesor.
+* Consume el servicio de teacher-quiz
+* */
 @Component({
   selector: 'app-teacher-quizzes-manager',
   templateUrl: './teacher-quizzes-manager.component.html',
@@ -33,6 +39,9 @@ export class TeacherQuizzesManagerComponent implements OnInit {
   ngOnInit() {
     this.refreshUsers();
   }
+  // Actualiza lista de las actividades registradas del profesor
+  // Se me olvido cambiarle el nombre al metodo, es muy parecido al de
+  // actualizar lista de usuarios registrados
   public refreshUsers() {
     this.loading = true;
     this.quizMan.getQuizzes().subscribe(qzs => {
@@ -43,6 +52,7 @@ export class TeacherQuizzesManagerComponent implements OnInit {
       this.loading = false;
     });
   }
+  // Elimina una actividad , solo consume el servicio
   public deleteUsr(idQuiz: number) {
     this.quizMan.deleteQuiz(idQuiz).subscribe(result => {
       this.myAlert.fromRESTStatus(result);
@@ -70,6 +80,9 @@ export class TeacherQuizzesManagerComponent implements OnInit {
     $('#' + q.id + '_inst').prop('disabled', !$('#' + q.id + '_inst').prop('disabled') );
     $('#' + q.id + '_inst').prop('disabled') ? btn.val('Editar datos de actividad')  : btn.val('Guardar');
   }
+  // Se piden las actividades del profesor al cargar,
+  // se guardan en un arreglo y solo se busca en el arreglo
+  // los que contengan el texto a buscar
   public search(txt: String) {
     const arr: QuizInterface[] = new Array<QuizInterface>();
     this.cacheQuizzes.quiz.forEach(q => {
@@ -82,7 +95,7 @@ export class TeacherQuizzesManagerComponent implements OnInit {
     });
     this.registdActvts$ = of(arr);
   }
-
+// Crea una actividad, consumiendo el servicio
   newActivity(t: HTMLInputElement, d: HTMLInputElement, i: HTMLInputElement) {
     const q: QuizInterface = <QuizInterface>{};
     q.title = t.value;

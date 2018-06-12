@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {CurrentUserService} from '../services/current-user.service';
 import {Router} from '@angular/router';
-
+/*
+* Componente del menu, solo redirige
+* */
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',

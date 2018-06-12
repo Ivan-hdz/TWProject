@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {MyBootstrapAlert} from '../clases';
 import {UserAccountService} from '../services/user-account.service';
 import {UserInterface} from '../interfaces';
-
+/*
+* Componente encargado de llevar la logica de inicio de sesion
+* Consume el metodo registrar del useraccount service
+* */
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',

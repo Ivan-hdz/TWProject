@@ -6,6 +6,7 @@ import {Builder} from 'xml2js';
 @Injectable()
 export class ParseFormatService
 {
+  // Simplemente pasa de json a xml y al reves
   public xmlToJson(xml: String)
   {
     let res;
