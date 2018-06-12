@@ -1,5 +1,4 @@
-export interface UserInterface
-{
+export interface UserInterface {
   nickname: String;
   username: String;
   authLevel: Number;
@@ -7,29 +6,33 @@ export interface UserInterface
   sessionToken: String;
 }
 
-export interface UsersInterface
-{
+export interface UsersInterface {
   user: UserInterface[];
 }
 
-export interface RESTStatus
-{
+export interface RESTStatus {
   status: Number;
   body: String;
   title: String;
 }
 
-export interface QuizInterface
-{
+export interface QuizInterface {
   id: number;
   title: string;
   description: string;
   instructions: string;
-  urlBody: string;
+  canvas: string;
 }
 
-export interface QuizzesInterface
-{
+export interface QuizzesInterface {
   quiz: QuizInterface[];
 }
 
+export interface FileReaderEventTarget extends EventTarget {
+  result: string;
+}
+
+export interface FileReaderEvent extends Event {
+  target: FileReaderEventTarget;
+  getMessage(): string;
+}

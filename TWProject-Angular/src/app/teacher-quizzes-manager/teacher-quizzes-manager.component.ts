@@ -89,7 +89,7 @@ export class TeacherQuizzesManagerComponent implements OnInit {
     q.description = d.value;
     q.instructions = i.value;
     q.id = 0;
-    q.urlBody = '';
+    q.canvas = '';
     this.quizMan.postQuiz(q).subscribe(restStatus => {
       this.myAlert.fromRESTStatus(restStatus);
       this.myAlert.hidden = false;

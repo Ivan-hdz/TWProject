@@ -3,7 +3,14 @@
   border: 2px dashed #cccccc;
 }
 
-
+.colorPick
+{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+img{
+  margin: 5px;
+}
 .target
 {
   display: block;
@@ -13,8 +20,9 @@
 }
 .source
 {
-
-  border: 1px solid black;
+  border: 2px dashed #f9f9f9;
+  overflow-y: auto;
+  background-color: #141414;
 }
 .block
 {

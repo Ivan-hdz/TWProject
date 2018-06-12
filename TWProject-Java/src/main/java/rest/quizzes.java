@@ -95,7 +95,7 @@ public class quizzes extends HttpServlet {
         RestStatus st = new RestStatus();
         Quiz q = jsonMapper.readValue(toUTF8(req.getParameter("quiz")), Quiz.class);
         int uniqueID = getUniqueId(context,uri[uri.length-1]); //Generando un id unico para la actividad
-        q.setUrlBody(String.valueOf(uniqueID)+ ".svg");
+        q.setCanvas("");
         q.setId(uniqueID);
       Quizzes qzs = getQuizzesFromXml(context, uri[uri.length-1]); //Obtenemos los registros de los quizzes existentes
         boolean exists = false;
@@ -150,7 +150,6 @@ public class quizzes extends HttpServlet {
             if(q_.getId() == q.getId())
             {
                 exists = true;
-                q.setUrlBody(q_.getUrlBody());
                 qzs.getQuiz().set(i, q);
                 break;
             }

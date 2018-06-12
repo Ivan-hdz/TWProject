@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!ELEMENT quizzes (quiz*)>
-<!ELEMENT quiz (id,title,description,instructions,urlBody)>
+<!ELEMENT quiz (id,title,description,instructions,canvas)>
 <!ELEMENT id (#PCDATA) >
 <!ELEMENT title (#PCDATA) >
 <!ELEMENT description (#PCDATA) >
 <!ELEMENT instructions (#PCDATA) >
-<!ELEMENT urlBody (#PCDATA) >
+<!ELEMENT canvas (#PCDATA) >

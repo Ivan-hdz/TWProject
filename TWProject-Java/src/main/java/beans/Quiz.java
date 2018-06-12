@@ -16,7 +16,7 @@ public class Quiz {
     private int id;
     private String title;
     private String description;
-    private String urlBody;
+    private String canvas;
     private String instructions;
 
     /**
@@ -64,15 +64,15 @@ public class Quiz {
     /**
      * @return the urlBody
      */
-    public String getUrlBody() {
-        return urlBody;
+    public String getCanvas() {
+        return canvas;
     }
 
     /**
      * @param urlBody the urlBody to set
      */
-    public void setUrlBody(String urlBody) {
-        this.urlBody = urlBody;
+    public void setCanvas(String c) {
+        this.canvas = c;
     }
 
     /**

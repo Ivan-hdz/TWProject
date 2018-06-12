@@ -12,6 +12,7 @@ import {
 } from '@angular/material';
 import {LoadingComponent} from '../../loading/loading.component';
 import {LoginComponent} from '../../login/login.component';
+import {ColorPickerModule} from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {LoginComponent} from '../../login/login.component';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatDividerModule
+    MatDividerModule,
+    ColorPickerModule
   ],
   exports: [
     MenuComponent,
@@ -39,7 +41,8 @@ import {LoginComponent} from '../../login/login.component';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatDividerModule
+    MatDividerModule,
+    ColorPickerModule
   ],
   providers: [CurrentUserService]
 })
