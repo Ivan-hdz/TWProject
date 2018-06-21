@@ -51,13 +51,15 @@ export class TeacherDiagramEditorComponent implements OnInit {
 
 
   ngOnInit() {
-    this.loadActivityDat();
+
     this.canvas = new fabric.Canvas('canvas');
+    this.loadActivityDat(this.canvas);
     this.initMyCanvas(this.canvas);
 
   }
 
   private initMyCanvas(canvas: any): void {
+
     // Funcion para eliminar objetos seleccionados
     function deleteObj() {
       const selectedObjects = canvas.getActiveObjects();
@@ -130,7 +132,7 @@ export class TeacherDiagramEditorComponent implements OnInit {
       const buf = new Image();
       buf.src = img.getAttribute('src');
       console.log(buf.src.indexOf('5.png'));
-      if (buf.src.indexOf('5.png') != -1) {
+      if (buf.src.indexOf('clipping-text-9.png') != -1) {
           const txt = new fabric.IText('Texto', {
             fontFamily: 'Century Gothic',
             left: e.layerX,
@@ -211,13 +213,15 @@ export class TeacherDiagramEditorComponent implements OnInit {
 
 
 
-  private loadActivityDat(): void {
+  private loadActivityDat(canvas: any): void {
     this.retrParam.params.subscribe(param => {
       this.qMan.getQuiz(param['id']).subscribe(q => {
         if ( q.id == null) {
           this.r.navigate(['teacher/quizzes']);
         } else {
           this.quiz = q;
+          console.log(this.quiz.canvas[0]);
+          canvas.loadFromJSON(this.quiz.canvas[0])  ;
         }
       });
     });

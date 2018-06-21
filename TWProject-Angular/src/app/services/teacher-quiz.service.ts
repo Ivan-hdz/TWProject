@@ -69,12 +69,18 @@ export class TeacherQuizService {
   * Modificamos una actividad existente
   * */
   private putQuizHttpMethod(q: QuizInterface): Observable<String> {
+    const cQ = <QuizInterface>{};
+    cQ.id = q.id[0];
+    cQ.title = q.title[0];
+    cQ.description = q.description[0];
+    cQ.instructions = q.instructions[0];
+    cQ.canvas = q.canvas;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'text/xml'
       }),
       responseType: 'text' as 'json',
-      params: {'quiz': JSON.stringify(q)}
+      params: {'quiz': JSON.stringify(cQ)}
     };
     return this.http.put<String>(restEndpoint + '/rest/quizzes/' + this.cUser.getUsername(), null, httpOptions);
   }
